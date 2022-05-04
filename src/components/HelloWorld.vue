@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <div class="m-5 p-3 bg-light">Hello, testing bootstrap</div>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
