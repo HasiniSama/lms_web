@@ -7,6 +7,12 @@ const routes = [{
             import ('../views/HomeView.vue')
     },
     {
+        path: '/signin',
+        name: 'signin',
+        component: () =>
+            import ('../views/SigninView.vue')
+    },
+    {
         path: '/about',
         name: 'about',
         component: () =>
