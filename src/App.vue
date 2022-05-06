@@ -1,22 +1,11 @@
 <template>
-  <NavBarVue/>
-  <!-- <nav>
+  <!-- <NavBarVue/>
+  <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav> -->
   <router-view/>
 </template>
-
-<script>
-import NavBarVue from '@/components/NavBar.vue'
-
-export default {
-  name: 'App',
-  components: {
-    NavBarVue
-  }
-}
-</script>
 
 <style>
 /* Font Awesome */
