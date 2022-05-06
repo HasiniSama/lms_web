@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'sf-pro-light';
+    src: url('../font/sf-pro-light.otf');
+}
+
+@font-face {
+    font-family: 'sf-pro';
+    src: url('../font/sf-pro.otf');
+}
+
+
+/* 
+
+Dark blue - #0E1A40
+Light blue - #222F5B
+Gray - #5D5D5D
+Brown - #946B2D
+Black - #000000
+
+*/
+
+.nolink {
+    text-decoration: none;
+    color: #2c3e50;
+}
+
+.bg-light-brown {
+    background-color: #946b2d08;
+}
+
+.bg-brown {
+    background-color: #946B2D;
+}
+
+.text-gray {
+    color: rgb(126, 126, 126);
+}
+
+.text-black {
+    color: #2c3e50 !important;
+}
