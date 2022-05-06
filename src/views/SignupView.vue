@@ -1,7 +1,11 @@
 <template>
     <section class="container-fluid">
         <div class="row" style="height: 100vh;">
-            
+            <div class="col-md-6 d-flex justify-content-center bg-light-brown">
+                <div class="d-flex align-items-center justify-content-center">
+                    <img src="../assets/img/register.png" alt="signin" class="">
+                </div>
+            </div>
             <div class="col-sm-8 col-md-4 mx-auto d-flex align-items-center">
                 <div class="w-100 mx-auto">
                     <h1>Sign up</h1>
