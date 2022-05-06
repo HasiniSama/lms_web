@@ -61,7 +61,8 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function(){
+
+    window.addEventListener("load", function(event) {
         var nav = document.querySelector('nav')
         window.addEventListener('scroll', function(){
             if(this.window.pageYOffset > 50){
@@ -72,5 +73,6 @@ nav a.router-link-exact-active {
                 nav.classList.add('mt-3')
             }
         })
-    })
+    });
+    
 </script>
