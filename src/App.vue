@@ -5,6 +5,7 @@
     <router-link to="/profile">Profile</router-link>
   </nav>
   <router-view/>
+  
 </template>
 
 <style>
