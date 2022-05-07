@@ -13,16 +13,16 @@
         <div class="col-md-4">
             <ul class="nav nav-pills mb-3 flex-column flex-sm-row" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="flex-sm-fill nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">About me</button>
+                    <button class="flex-sm-fill nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><span>About me</span></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Grades</button>
+                    <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><span>Grades</span></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="flex-sm-fill nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Edit profile</button>
+                    <button class="flex-sm-fill nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><span>About me</span></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="flex-sm-fill nav-link" id="pills-more-tab" data-bs-toggle="pill" data-bs-target="#pills-more" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">More</button>
+                    <button class="flex-sm-fill nav-link" id="pills-more-tab" data-bs-toggle="pill" data-bs-target="#pills-more" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><span>More</span></button>
                 </li>
             </ul>
         </div>
@@ -123,12 +123,15 @@
     color: black;
 }
 
-.nav .nav-item button:active{
-   background-color: wheat;
+.nav .nav-item button.active{
+    background-color: transparent;
     color: #946B2D;
- 
+   
 }
 
-
+.nav .nav-item button.active span{
+    padding: 2px;
+    border-bottom: 3px black solid;
+}
 
 </style>
