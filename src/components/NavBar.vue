@@ -35,7 +35,7 @@
     </nav>
 </template>
 
-<style>
+<style scoped>
 
 nav {
   padding: 30px;
@@ -61,6 +61,15 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
+    // const um = require('../user/user-manager')
+
+    // um.signout
+
+    // console.log(um.isSigned);
+    // console.log(um.token);
+    // um.setToken('Hello there')
+    // console.log(um.token);
+    // console.log(um.isSigned);
 
     window.addEventListener("load", function(event) {
         var nav = document.querySelector('nav')
