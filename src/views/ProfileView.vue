@@ -16,7 +16,7 @@
                     <button class="flex-sm-fill nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">About me</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="flex-sm-fill nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Grades</button>
+                    <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Grades</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="flex-sm-fill nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Edit profile</button>
@@ -26,21 +26,46 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-10">
+    </div>
+    <div class="row p-3 justify-content-center">
+        <div class="col-md-8 text-start">
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                        when an unknown printer took a galley of type and scrambled it to make a type 
-                        specimen book. It has survived not only five centuries, but also the leap into 
-                        electronic typesetting, remaining essentially unchanged..</p>
+                    <form>
+                        <fieldset disabled>
+                           
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Name</label>
+                            <input type="text" id="studentName" class="form-control" placeholder="Disabled input">
+                            </div>
+                            
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Student ID</label>
+                            <input type="text" id="studentID" class="form-control" placeholder="Disabled input">
+                            </div>
+
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Degree Program</label>
+                            <input type="text" id="degree" class="form-control" placeholder="Disabled input">
+                            </div>
+                           
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Contact Number</label>
+                            <input type="text" id="contact" class="form-control" placeholder="Disabled input">
+                            </div>
+
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Country</label>
+                            <input type="text" id="country" class="form-control" placeholder="Disabled input">
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type 
-                    specimen book. It has survived not only five centuries, but also the leap into 
-                    electronic typesetting, remaining essentially unchanged..</p> 
+                     <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Current GPA: </label>
+                            <label for="disabledTextInput" class="form-label m-4" >3.2</label>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -71,9 +96,13 @@
     color: black;
 }
 
-.nav button{
-    background-color: none;
+.nav .nav-item button:active{
+   background-color: wheat;
+    color: #946B2D;
+ 
 }
+
+
 
 </style>
 <script>
