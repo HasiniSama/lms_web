@@ -25,6 +25,12 @@ const routes = [{
             import ('../views/AboutView.vue')
     },
     {
+        path: '/course/:id',
+        name: 'course-details',
+        component: () =>
+            import ('../views/CourseDetailsView.vue')
+    },
+    {
         path: '/:pathMatch(.*)*',
         name: 'error',
         component: () =>
