@@ -29,9 +29,14 @@ export default {
             id: this.$route.params.id
         }
     },
-    created(){
-        // this.id = this.$route.params.id
-    }
+    created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+          this.id = toParams.id
+      }
+    )
+  },
 }
 </script>
 
