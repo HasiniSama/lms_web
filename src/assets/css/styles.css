@@ -43,3 +43,7 @@ Black - #000000
 .text-black {
     color: #2c3e50 !important;
 }
+
+.page-content {
+    margin-top: 75px;
+}
