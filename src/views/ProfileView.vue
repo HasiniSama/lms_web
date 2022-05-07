@@ -66,13 +66,40 @@
                             <label for="disabledTextInput" class="form-label">Current GPA: </label>
                             <label for="disabledTextInput" class="form-label m-4" >3.2</label>
                     </div>
+                    <div id="curve_chart"></div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type 
-                    specimen book. It has survived not only five centuries, but also the leap into 
-                    electronic typesetting, remaining essentially unchanged..</p>
+                     <form>
+                        <fieldset>
+                           
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Name</label>
+                            <input type="text" id="studentName" class="form-control" placeholder="Disabled input">
+                            </div>
+                            
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Student ID</label>
+                            <input type="text" id="studentID" class="form-control" placeholder="Disabled input">
+                            </div>
+
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Degree Program</label>
+                            <input type="text" id="degree" class="form-control" placeholder="Disabled input">
+                            </div>
+                           
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Contact Number</label>
+                            <input type="text" id="contact" class="form-control" placeholder="Disabled input">
+                            </div>
+
+                            <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Country</label>
+                            <input type="text" id="country" class="form-control" placeholder="Disabled input">
+                            </div>
+
+                             <button type="submit" class="btn btn-primary">Save</button>
+                        </fieldset>
+                    </form>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-more-tab">
                     <p class="pt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -105,7 +132,3 @@
 
 
 </style>
-<script>
-
-
-</script>
