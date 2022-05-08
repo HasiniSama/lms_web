@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark mt-3">
+    <nav class="navbar fixed-top navbar-expand-lg blue-text mt-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../assets/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
@@ -10,10 +10,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
                     <li class="nav-item me-2">
-                    <a class="nav-link active" aria-current="page" href="#"><router-link to="/">Home</router-link></a>
-                    </li>
-                    <li class="nav-item me-2">
-                    <a class="nav-link" aria-current="page" href="#">Dashboard</a>
+                    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
                     </li>
                     <li class="nav-item me-2">
                         <a class="nav-link" href="#">Courses</a>
@@ -58,6 +55,12 @@ nav a.router-link-exact-active {
 .blue{
     background: #0E1A40;
 }
+
+.blue-text .navbar-nav .nav-link{
+    color: #0E1A40;
+    font-weight: bold;
+}
+
 </style>
 
 <script>
@@ -75,11 +78,11 @@ nav a.router-link-exact-active {
         var nav = document.querySelector('nav')
         window.addEventListener('scroll', function(){
             if(this.window.pageYOffset > 50){
-                nav.classList.add('blue','shadow')
-                nav.classList.remove('mt-3')
+                nav.classList.add('blue','navbar-dark','shadow')
+                nav.classList.remove('mt-3','blue-text')
             }else{
-                nav.classList.remove('blue','shadow')
-                nav.classList.add('mt-3')
+                nav.classList.remove('blue','navbar-dark','shadow')
+                nav.classList.add('mt-3', 'blue-text')
             }
         })
     });
