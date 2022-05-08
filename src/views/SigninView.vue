@@ -11,7 +11,7 @@
                     <h1>Sign in</h1>
                     <p class="text-gray">Sign in for Learning management system.</p>
                     <div class="mt-4">
-                        <form action="" method="POST" @submit="signin">
+                        <form action="" method="POST" @submit.prevent="signin">
                             <label for="email_field" class="form-label">Email address</label>
                             <div class="input-group input-group-sm">
                                 <input type="email" name="email" class="form-control" id="email_field" v-model="form.email" required>
@@ -41,46 +41,53 @@
 </template>
 
 <script>
-export default {
-    name: 'Signin',
-    data() {
-        return {
-            form: {
-                email: "",
-                password: "",
-                rememberMe: false
+    import axios from "axios"
+
+    export default {
+        name: 'Signin',
+        data() {
+            return {
+                form: {
+                    email: "",
+                    password: "",
+                    rememberMe: false
+                }
             }
-        }
-    },
-    methods: {
-        rememberMe(){
-            localStorage.setItem('email', this.form.email)
-            localStorage.setItem('rememberMe', this.form.rememberMe)
-            console.log('saved');
         },
-        clearData(){
-            localStorage.removeItem('email')
-            localStorage.removeItem('rememberMe')
-            console.log('cleared');
-        },
-        signin(e){
-            e.preventDefault()
-            if(this.form.rememberMe){
-                this.rememberMe()
-            }else{
-                this.clearData()
+        methods: {
+            rememberMe(){
+                localStorage.setItem('email', this.form.email)
+                localStorage.setItem('rememberMe', this.form.rememberMe)
+                console.log('saved');
+            },
+            clearData(){
+                localStorage.removeItem('email')
+                localStorage.removeItem('rememberMe')
+                console.log('cleared');
+            },
+            async signin(){
+                if(this.form.rememberMe){
+                    this.rememberMe()
+                }else{
+                    this.clearData()
+                }
+
+                const response = await axios.post('login', {
+                    email: this.form.email,
+                    password: this.form.password
+                })
+                console.log(response);
             }
+        },
+        mounted(){
+            var email = localStorage.getItem('email')
+            var rememberMe = localStorage.getItem('rememberMe')
+            if(email)
+            this.form.email = localStorage.getItem('email')
+            if(rememberMe)
+            this.form.rememberMe = localStorage.getItem('rememberMe')
         }
-    },
-    mounted(){
-        var email = localStorage.getItem('email')
-        var rememberMe = localStorage.getItem('rememberMe')
-        if(email)
-        this.form.email = localStorage.getItem('email')
-        if(rememberMe)
-        this.form.rememberMe = localStorage.getItem('rememberMe')
     }
-}
 </script>
 
 <style scoped>

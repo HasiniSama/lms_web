@@ -72,7 +72,7 @@
         },
         methods: {
             async signup(){                
-                const response = await axios.post('signup', {
+                await axios.post('signup', {
                     id: '',
                     name: this.form.name,
                     email: this.form.email,
@@ -80,7 +80,7 @@
                     role: this.form.role
                 })
 
-                console.log(response)
+                this.$router.push('/signin')
             }
         }
     }
