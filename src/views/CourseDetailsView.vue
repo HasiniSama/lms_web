@@ -2,8 +2,8 @@
     <NavBarVue />
     <section class="page-content">
         <!-- <CourseDetailsViewForEveryone :id="id" /> -->
-        <CourseDetailsForEnrolledStudents :id="id" />
-        <!-- <CourseDetailsForConductingLecturers id="33" /> -->
+        <!-- <CourseDetailsForEnrolledStudents :id="id" /> -->
+        <CourseDetailsForConductingLecturers :id="id" />
     </section>
 </template>
 

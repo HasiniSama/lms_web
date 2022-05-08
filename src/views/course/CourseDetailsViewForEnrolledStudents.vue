@@ -2,7 +2,7 @@
     <div class="container-fluid px-auto px-md-5">
         <div class="row">
             <div class="col-12 bg-light">
-                <h2>Course name</h2>
+                <h2>{{name}}</h2>
             </div>
             <div class="col-md-9">
                 <nav class="ps-auto ps-md-0">
