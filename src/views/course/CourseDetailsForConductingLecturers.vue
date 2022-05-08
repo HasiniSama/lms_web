@@ -20,7 +20,9 @@
                         <EmptyState title="No announcements found!" v-if="isAnnouncementsEmplty" />
                         <div class="announcements" v-else>
                             <div class="d-flex  mb-3 new-announcement">
-                                <button class="btn mx-auto ms-md-auto me-md-0">
+                                <NewAnnouncementModal id="new-announcement-modal" :callback="updateAnnouncements" />
+
+                                <button class="btn mx-auto ms-md-auto me-md-0" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
                                     <i class="fa-solid fa-scroll"></i> New Announcements
                                 </button>
                             </div>
@@ -65,13 +67,15 @@
 import EmptyState from '@/components/EmptyState.vue'
 import CourseListItem from '@/components/CourseListItem.vue'
 import Accordion from '@/components/Accordion.vue'
+import NewAnnouncementModal from '@/components/NewAnnouncementModal.vue'
 
 export default {
     name: 'CourseDetailsForEnrolledstudents',
     components: {
         EmptyState,
         CourseListItem,
-        Accordion
+        Accordion,
+        NewAnnouncementModal
     },
     props: {
         id: String
@@ -98,6 +102,11 @@ export default {
                 {id: 6, title: "Course 6", description: "SENG 12321"},
                 {id: 7, title: "Course 7", description: "SENG 12321"},
             ]
+        }
+    },
+    methods: {
+        updateAnnouncements(_title, _description) {
+            this.announcements.push({id: this.announcements.length+1, title: _title, description: _description})
         }
     },
     computed: {
