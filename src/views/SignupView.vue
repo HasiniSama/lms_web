@@ -11,7 +11,7 @@
                     <h1>Sign up</h1>
                     <p class="text-gray">Sign up for Learning management system as a student or a lecturer.</p>
                     <div class="mt-4">
-                        <form @submit="signup">
+                        <form @submit.prevent="signup">
                             <label for="email_field" class="form-label">Email address</label>
                             <div class="input-group input-group-sm">
                                 <input type="email" name="email" class="form-control" id="email_field" v-model="form.email" required>
@@ -52,25 +52,38 @@
 </template>
 
 <script>
-export default {
-    name: 'Signup',
-    data() {
-        return {
-            form: {
-                email: "",
-                password: "",
-                name: "",
-                role: "",
-                cPassword: ""
+
+    // const USER_SERVICE = require('../services/UserServices')
+
+    import axios from "axios"
+
+    export default {
+        name: 'Signup',
+        data() {
+            return {
+                form: {
+                    email: "",
+                    name: "",
+                    role: "",
+                    password: "",
+                    cPassword: ""
+                }
+            }
+        },
+        methods: {
+            async signup(){                
+                const response = await axios.post('signup', {
+                    id: '',
+                    name: this.form.name,
+                    email: this.form.email,
+                    password: this.form.password,
+                    role: this.form.role
+                })
+
+                console.log(response)
             }
         }
-    },
-    methods: {
-        signup(e){
-            e.preventDefault()
-        }
     }
-}
 </script>
 
 <style scoped>
