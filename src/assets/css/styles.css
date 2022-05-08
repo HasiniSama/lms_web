@@ -43,3 +43,23 @@ Black - #000000
 .text-black {
     color: #2c3e50 !important;
 }
+
+/* Responsive Grid Design */
+@media (max-width: 768px) {
+    .col-xs-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-xs-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-xs-8 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-xs-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
