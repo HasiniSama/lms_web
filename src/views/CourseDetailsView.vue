@@ -1,6 +1,6 @@
 <template>
     <NavBarVue />
-    <section class="page-content">
+    <section class="page-content pb-3">
         <!-- <CourseDetailsViewForEveryone :id="id" /> -->
         <!-- <CourseDetailsForEnrolledStudents :id="id" /> -->
         <CourseDetailsForConductingLecturers :id="id" />
