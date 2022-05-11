@@ -15,7 +15,13 @@
                     <li class="nav-item me-2">
                         <a class="nav-link" href="#">Courses</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item me-2" v-if="!isSigned">
+                        <router-link to="/signin" class="nav-link">Sign in</router-link>
+                    </li>
+                    <li class="nav-item me-2" v-if="!isSigned">
+                        <router-link to="/signup" class="nav-link">Sign up</router-link>
+                    </li>
+                    <li class="nav-item dropdown" v-else>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
                         </a>
@@ -32,10 +38,10 @@
     </nav>
 </template>
 
-<style>
+<style scoped>
 
 nav {
-  padding: 30px;
+  padding: 20px;
 }
 
 nav a {
@@ -64,18 +70,30 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-
-    window.addEventListener("load", function(event) {
-        var nav = document.querySelector('nav')
-        window.addEventListener('scroll', function(){
-            if(this.window.pageYOffset > 50){
-                nav.classList.add('blue','navbar-dark','shadow')
-                nav.classList.remove('mt-3','blue-text')
-            }else{
-                nav.classList.remove('blue','navbar-dark','shadow')
-                nav.classList.add('mt-3', 'blue-text')
+    export default{
+        name: 'NavBar',
+        data(){
+            return{
+                isSigned: true
             }
-        })
-    });
+        },
+        methods:{
+        },
+        created() {
+            window.addEventListener("load", function(event) {
+                var nav = document.querySelector('nav')
+                window.addEventListener('scroll', function(){
+                    if(this.window.pageYOffset > 50){
+                        nav.classList.add('blue','navbar-dark','shadow')
+                        nav.classList.remove('mt-3','blue-text')
+                    }else{
+                        nav.classList.remove('blue','navbar-dark','shadow')
+                        nav.classList.add('mt-3', 'blue-text')
+                    }
+                })
+            });
+        }
+    }
+
     
 </script>
