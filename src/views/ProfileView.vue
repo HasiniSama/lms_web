@@ -13,18 +13,21 @@
             </div>
         </div>
         <div class="col-sm-8 profile-details p-4">
-            <ul class="nav nav-pills mb-3 flex-column flex-sm-row" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="flex-sm-fill nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-about" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><span>About me</span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><span>Grades</span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="flex-sm-fill nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><span>Edit Profile</span></button>
-                </li>
-                
-            </ul>
+            <div class="row col">
+                <ul class="nav nav-pills mb-3 flex-column flex-sm-row" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="flex-sm-fill nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-about" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><span>About me</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><span>Grades</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="flex-sm-fill nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><span>Edit Profile</span></button>
+                    </li>
+                    
+                </ul>
+
+            </div>
 
             <div class="row p-3 justify-content-center">
                 <div class="col text-start">
@@ -65,7 +68,7 @@
                                     <label for="disabledTextInput" class="form-label">Current GPA: </label>
                                     <label for="disabledTextInput" class="form-label m-4" >3.2</label>
                             </div>
-                            <div id="curve_chart"></div>
+                            <div id="curve_chart"><Linechart /></div>
                         </div>
                         <div class="tab-pane fade" id="pills-edit" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <form>
@@ -142,8 +145,7 @@
 .nav li {
   display: inline-block;
   position: relative;
-  padding-bottom: 3px;
-  margin-right: 10px;
+
 }
 .nav li:last-child {
   margin-right: 0;
@@ -175,3 +177,13 @@
   
 }
 </style>
+<script>
+import LineChart from '@/components/Line.vue'
+
+export default {
+  name: 'Profile',
+  components: {
+    LineChart
+  }
+}
+</script>
