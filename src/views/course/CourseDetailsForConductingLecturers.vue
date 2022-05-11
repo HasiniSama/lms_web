@@ -17,15 +17,14 @@
                         <EmptyState title="No avtivity found!" />
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="d-flex  mb-3 new-announcement" v-if="isAnnouncementsEmplty">
+                            <NewAnnouncementModal id="new-announcement-modal" :callback="updateAnnouncements" />
+                            <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
+                                <i class="fa-solid fa-scroll"></i> New Announcements
+                            </button>
+                        </div>
                         <EmptyState title="No announcements found!" v-if="isAnnouncementsEmplty" />
                         <div class="announcements" v-else>
-                            <div class="d-flex  mb-3 new-announcement">
-                                <NewAnnouncementModal id="new-announcement-modal" :callback="updateAnnouncements" />
-
-                                <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
-                                    <i class="fa-solid fa-scroll"></i> New Announcements
-                                </button>
-                            </div>
                             <Accordion
                                 v-for="a in announcements" 
                                 :key="a.id" 
