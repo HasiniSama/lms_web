@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid px-auto px-md-5">
         <div class="row">
-            <div class="col-12 bg-light">
+            <div class="col-12 bg-light mb-2">
                 <h2>{{name}}</h2>
             </div>
             <div class="col-md-9">
@@ -22,7 +22,7 @@
                             <div class="d-flex  mb-3 new-announcement">
                                 <NewAnnouncementModal id="new-announcement-modal" :callback="updateAnnouncements" />
 
-                                <button class="btn mx-auto ms-md-auto me-md-0" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
+                                <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
                                     <i class="fa-solid fa-scroll"></i> New Announcements
                                 </button>
                             </div>
@@ -52,10 +52,11 @@
                 <div class="enrolled-courses mt-4">
                     <CourseListItem
                         v-for="course in conductingCourses"
-                        :key="course.id"
-                        :id="course.id"
+                        :key="course.course_id"
+                        :id="course.course_id"
                         :name="course.name"
-                        :code="course.code"
+                        :code="course.course_code"
+                        @click="initComponent"
                     />
                 </div>
             </div>
@@ -68,6 +69,10 @@ import EmptyState from '@/components/EmptyState.vue'
 import CourseListItem from '@/components/CourseListItem.vue'
 import Accordion from '@/components/Accordion.vue'
 import NewAnnouncementModal from '@/components/NewAnnouncementModal.vue'
+
+import userService from '@/services/UserServices.js'
+import courseService from '@/services/CourseService.js'
+import lecturerService from '@/services/LecturerService.js'
 
 export default {
     name: 'CourseDetailsForEnrolledstudents',
@@ -82,37 +87,70 @@ export default {
     },
     data(){
         return{
+            auth:{
+                role: "",
+                authorityCourses: ""
+            },
             code: "SENG 12234",
             name: "Testing Mobile Applications",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque neque fugit deleniti rem dignissimos architecto rerum velit nam accusamus error beatae iure, nemo sapiente exercitationem qui tenetur facilis, aspernatur quod.",
             lecturer: {
                 name: "John Doe"
             },
-            conductingCourses: [
-                {id: 1, name: "Course 1", code: "SENG 12321"},
-                {id: 2, name: "Course 2", code: "SENG 12321"},
-                {id: 3, name: "Course 3", code: "SENG 12321"},
-            ],
-            announcements: [
-                {id: 1, title: "Course 1", description: "SENG 12321"},
-                {id: 2, title: "Course 2", description: "SENG 12321"},
-                {id: 3, title: "Course 3", description: "SENG 12321"},
-                {id: 4, title: "Course 4", description: "SENG 12321"},
-                {id: 5, title: "Course 5", description: "SENG 12321"},
-                {id: 6, title: "Course 6", description: "SENG 12321"},
-                {id: 7, title: "Course 7", description: "SENG 12321"},
-            ]
+            conductingCourses: [],
+            announcements: []
         }
     },
     methods: {
         updateAnnouncements(_title, _description) {
             this.announcements.push({id: this.announcements.length+1, title: _title, description: _description})
+        },
+        initComponent(){
+            this.auth.role = userService.getUserDetails().role
+            this.auth.authorityCourses = userService.getUserDetails().courses
+
+            //course details
+            courseService.getCourseDetails(
+                this.id, userService.getToken()
+            ).then(data => {
+                this.code = data.course_code
+                this.name = data.name
+                this.description = data.description
+                this.lecturer.name = data.lecturer.name
+            }).catch(err => {
+                console.log(err);
+            })
+
+            //announcements
+            courseService.getAnnouncements(
+                this.id, userService.getToken()
+            ).then(data => {
+                this.announcements = data
+            }).catch(err => {
+                console.log(err)
+            })
+
+            //other cources
+            lecturerService.getOtherConductingCources(
+                userService.getUserDetails().id, userService.getToken()
+            ).then(data => {
+                this.conductingCourses = data.filter(item => {return item.course_id != this.id})
+            }).catch(err => {
+                console.log(err)
+            })
         }
     },
     computed: {
         isAnnouncementsEmplty(){
             return this.announcements.length == 0
         }
+    },
+    created(){
+        if(!userService.isSigned){
+            this.$router.push('/signin')
+            return
+        }
+        this.initComponent()
     }
 }
 </script>
