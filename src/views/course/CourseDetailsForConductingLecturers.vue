@@ -149,6 +149,16 @@ export default {
             this.$router.push('/signin')
             return
         }
+        lecturerService.hasAccess(
+            userService.getUserDetails().id,
+            this.id,
+            userService.getToken()
+        ).then(res => {
+            console.log(res);
+            if(!res){
+                alert("You don't have access to this course!")
+            }
+        })
         this.initComponent()
     }
 }
