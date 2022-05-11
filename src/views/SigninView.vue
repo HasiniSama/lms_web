@@ -18,8 +18,11 @@
                             </div>
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                             <label for="password_field" class="form-label mt-3">Password</label>
-                            <div class="input-group input-group-sm mb-3">
-                                <input type="password" name="password" class="form-control" id="password_field" required>
+                            <div class="input-group has-validation input-group-sm mb-3">
+                                <input type="password" name="password" class="form-control" :class="isError?'is-invalid':''" id="password_field" required>
+                                <div class="invalid-feedback">
+                                    Incorrect password
+                                </div>
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="form.rememberMe">
@@ -41,12 +44,13 @@
 </template>
 
 <script>
-    import axios from "axios"
+    import userService from "../services/UserServices"
 
     export default {
         name: 'Signin',
         data() {
             return {
+                isError: false,
                 form: {
                     email: "",
                     password: "",
@@ -58,34 +62,38 @@
             rememberMe(){
                 localStorage.setItem('email', this.form.email)
                 localStorage.setItem('rememberMe', this.form.rememberMe)
-                console.log('saved');
             },
             clearData(){
                 localStorage.removeItem('email')
                 localStorage.removeItem('rememberMe')
-                console.log('cleared');
             },
-            async signin(){
+            signin(e){
                 if(this.form.rememberMe){
                     this.rememberMe()
                 }else{
                     this.clearData()
                 }
 
-                const response = await axios.post('login', {
-                    email: this.form.email,
-                    password: this.form.password
+                userService.signin(new FormData(e.target)).then(res => {
+                    this.initForm()
+                    this.isError = false
+                    this.$router.push("/")
+                }).catch(err => {
+                    this.isError = true
+                    // todo : if any error
                 })
-                console.log(response);
+            },
+            initForm(){
+                var email = localStorage.getItem('email')
+                var rememberMe = localStorage.getItem('rememberMe')
+                if(email)
+                this.form.email = email
+                if(rememberMe)
+                this.form.rememberMe = rememberMe
             }
         },
         mounted(){
-            var email = localStorage.getItem('email')
-            var rememberMe = localStorage.getItem('rememberMe')
-            if(email)
-            this.form.email = localStorage.getItem('email')
-            if(rememberMe)
-            this.form.rememberMe = localStorage.getItem('rememberMe')
+            this.initForm()
         }
     }
 </script>
