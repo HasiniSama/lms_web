@@ -1,4 +1,4 @@
-module.exports = class UserManager {
+module.exports = class LocalStorageManager {
 
     #TOKEN_KEY;
     #REFRESH_TOKEN_KEY;
@@ -9,12 +9,12 @@ module.exports = class UserManager {
         this.cookies = require('vue-cookies')
         this.token = this.cookies.get(this.#TOKEN_KEY)
         this.refreshToken = this.cookies.get(this.#REFRESH_TOKEN_KEY)
-        this.isSigned = this.token != null
+        this.isTokenAvailable = this.token != null
     }
 
     setToken(token) {
         this.token = token
-        this.isSigned = true
+        this.isTokenAvailable = true
         this.cookies.set(this.#TOKEN_KEY, token)
     }
 
@@ -26,7 +26,7 @@ module.exports = class UserManager {
     removeAllTokens() {
         this.token = null
         this.refreshToken = null
-        this.isSigned = false
+        this.isTokenAvailable = false
         this.cookies.remove(this.#TOKEN_KEY)
         this.cookies.remove(this.#REFRESH_TOKEN_KEY)
     }
