@@ -29,17 +29,21 @@ class UserService {
         return this.localStorageManager.isTokenAvailable
     }
 
+    getToken() {
+        return this.localStorageManager.token
+    }
+
     signout() {
         this.localStorageManager.removeAllTokens()
     }
 
-    getUserType() {
+    getUserDetails() {
         if (!this.isSigned()) {
             return { err: "signin first" }
         }
         const tokenDecodablePart = this.localStorageManager.token.split('.')[1];
         const decoded = Buffer.from(tokenDecodablePart, 'base64').toString();
-        return JSON.parse(decoded).authorities[0]
+        return JSON.parse(decoded)
     }
 }
 
