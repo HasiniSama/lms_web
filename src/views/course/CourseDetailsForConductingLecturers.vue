@@ -14,7 +14,7 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <EmptyState title="No avtivity found!" />
+                        <EmptyState class="mt-3" title="No avtivity found!" />
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="d-flex  mb-3 new-announcement">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <section>
+                        <section class="mt-3">
                             <h2>Course Details</h2>
                             <hr>
                             <h5 class="text-gray">Course name: {{name}}</h5>

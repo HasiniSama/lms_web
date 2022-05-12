@@ -13,12 +13,12 @@
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="tab-pane fade show active mt-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <EmptyState title="No avtivity found!" />
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <EmptyState title="No announcements found!" v-if="isAnnouncementsEmplty" />
-                        <div class="announcements" v-else>
+                        <EmptyState class="mt-3" title="No announcements found!" v-if="isAnnouncementsEmplty" />
+                        <div class="announcements mt-3" v-else>
                             <Accordion
                                 v-for="a in announcements" 
                                 :key="a.id" 
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <section>
+                        <section class="mt-3">
                             <h2>Course Details</h2>
                             <hr>
                             <h5 class="text-gray">Course name: {{name}}</h5>
