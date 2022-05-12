@@ -1,9 +1,10 @@
 <template>
     <NavBarVue />
     <section class="page-content pb-3">
-        <!-- <CourseDetailsViewForEveryone :id="id" /> -->
-        <!-- <CourseDetailsForEnrolledStudents :id="id" /> -->
-        <CourseDetailsForConductingLecturers :id="id" />
+        <CourseDetailsViewForEveryone :id="id" v-if="isStudentNotEnrolled" :showEnrollOption="true" />
+        <CourseDetailsForEnrolledStudents :id="id" v-else-if="isStudentEnrolled" />
+        <CourseDetailsForConductingLecturers :id="id" v-else-if="isLecturerConducting" />
+        <CourseDetailsViewForEveryone :id="id" v-else-if="isLecturerNotConducting" :showEnrollOption="false" />
     </section>
 </template>
 
@@ -16,6 +17,9 @@ import CourseDetailsViewForEveryone from './course/CourseDetailsViewForEveryone.
 import CourseDetailsForEnrolledStudents from './course/CourseDetailsViewForEnrolledStudents.vue'
 import CourseDetailsForConductingLecturers from './course/CourseDetailsForConductingLecturers.vue'
 
+import userService from '@/services/UserServices.js'
+import lectureService from '@/services/LecturerService.js'
+
 export default {
     name: 'CourseDetails',
     components: {
@@ -26,16 +30,51 @@ export default {
     },
     data(){
         return{
-            id: this.$route.params.id
+            id: this.$route.params.id,
+            role: "",
+            hasAccess: "",
+            loadingCompleted: false
+        }
+    },
+    computed: {
+        isStudentEnrolled(){
+            return this.role == userService.UserType.STUDENT && this.hasAccess
+        },
+        isStudentNotEnrolled(){
+            return this.role == userService.UserType.STUDENT && !this.hasAccess
+        },
+        isLecturerConducting(){
+            return this.role == userService.UserType.LECTURER && this.hasAccess
+        },
+        isLecturerNotConducting(){
+            return this.role == userService.UserType.LECTURER && !this.hasAccess
         }
     },
     created() {
-    this.$watch(
-      () => this.$route.params,
-      (toParams, previousParams) => {
-          this.id = toParams.id
-      }
-    )
+        this.role = userService.getUserDetails().role
+
+        if(this.role == userService.UserType.LECTURER){
+            lectureService.hasAccess(userService.getUserDetails().id, this.id, userService.getToken()).then(res => {
+                this.loadingCompleted = true
+                this.hasAccess = res
+            }).catch(err => {
+                console.log(err)
+            })
+        }else if(this.role == userService.UserType.STUDENT){
+            userService.hasAccess(this.id).then(res => {
+                this.loadingCompleted = true
+                this.hasAccess = res
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
+        this.$watch(
+            () => this.$route.params,
+            (toParams, previousParams) => {
+                this.id = toParams.id
+            }
+        )
   },
 }
 </script>
