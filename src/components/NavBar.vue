@@ -10,18 +10,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
                     <li class="nav-item me-2">
-                    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+                         <router-link to="/" class="nav-link active" aria-current="page">Dashboard</router-link>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" href="#">Courses</a>
+                        <router-link to="/courses" class="nav-link" aria-current="page">Courses</router-link>
                     </li>
-                    <li class="nav-item me-2" v-if="!isSigned">
-                        <router-link to="/signin" class="nav-link">Sign in</router-link>
-                    </li>
-                    <li class="nav-item me-2" v-if="!isSigned">
-                        <router-link to="/signup" class="nav-link">Sign up</router-link>
-                    </li>
-                    <li class="nav-item dropdown" v-else>
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
                         </a>

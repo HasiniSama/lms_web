@@ -20,6 +20,16 @@ class CourseService {
             throw err
         })
     }
+
+    async getAllCourses(token) {
+        return axios.get(`course/all`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
 }
 
 export default new CourseService()
