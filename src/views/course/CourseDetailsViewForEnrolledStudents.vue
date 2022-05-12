@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-3">
                 <h4 class="text-center mt-3">Other courses</h4>
-                <p class="text-gray text-center mt-3" v-if="isEnrolledCoursesEmplty">No other courses!</p>
+                <p class="text-gray text-center mt-3" v-if="isEnrolledCoursesEmpty">No other courses!</p>
                 <div class="enrolled-courses mt-4" v-else>
                     <CourseListItem
                         v-for="course in enrolledCourses"
@@ -126,7 +126,7 @@ export default {
         isAnnouncementsEmplty(){
             return this.announcements.length == 0
         },
-        isEnrolledCoursesEmplty(){
+        isEnrolledCoursesEmpty(){
             return this.enrolledCourses.length == 0
         }
     },
