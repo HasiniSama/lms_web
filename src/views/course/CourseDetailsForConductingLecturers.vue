@@ -48,7 +48,8 @@
             </div>
             <div class="col-md-3">
                 <h4 class="text-center mt-3">Conducting courses</h4>
-                <div class="enrolled-courses mt-4">
+                <p class="text-gray text-center mt-3" v-if="isConductingCoursesEmpty">No other courses!</p>
+                <div class="enrolled-courses mt-4" v-else>
                     <CourseListItem
                         v-for="course in conductingCourses"
                         :key="course.course_id"
@@ -142,6 +143,9 @@ export default {
     computed: {
         isAnnouncementsEmplty(){
             return this.announcements.length == 0
+        },
+        isConductingCoursesEmpty(){
+            return this.conductingCourses.length == 0
         }
     },
     created(){
