@@ -31,3 +31,19 @@ export default {
   }
 }
 </script>
+<style>
+
+h2{
+  font-size:4vh;
+  font-weight:bold;
+}
+h5{
+  font-size: 3vh;
+  color: lightgray;
+  font-weight: bold;
+}
+.announcements{
+  background-color: lightgray;
+  border-radius: 3vh;
+}
+</style>
