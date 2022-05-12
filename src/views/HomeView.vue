@@ -15,6 +15,23 @@
         </div>
       </div>
     </div>
+    <div class="container-fluid ">
+      <div class="row pt-5">
+        <h3 >Enrolled courses</h3>
+        <div class="col-md-3 pt-3">
+          <CourseCard />
+        </div>
+          <div class="col-md-3 pt-3">
+          <CourseCard />
+        </div>
+          <div class="col-md-3 pt-3">
+          <CourseCard />
+        </div>
+          <div class="col-md-3 pt-3">
+          <CourseCard />
+        </div>
+      </div>
+  </div>
   </div>
 </template>
 
