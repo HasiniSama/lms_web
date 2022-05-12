@@ -17,6 +17,11 @@
 
 
 <style scoped>
+    .card-title {
+        font-size: 24px;
+        font-family: 'montserrat-bold';
+        font-weight: 300;
+    }
     .courses-card {
         position: relative;
         overflow: hidden;
