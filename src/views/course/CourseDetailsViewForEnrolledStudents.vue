@@ -1,10 +1,10 @@
 <template>
     <div class="container-fluid px-auto px-md-5">
         <div class="row">
-            <div class="col-12 bg-light">
+            <div class="col-12 bg-light mt-3">
                 <h2>{{name}}</h2>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 mt-3">
                 <nav class="ps-auto ps-md-0">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Activity</button>
