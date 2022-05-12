@@ -82,10 +82,9 @@ export default {
         padding: 30px 0;
     }
     .courses h1 {
-        font-size: 28px;
+        font-size: 30px;
         text-align: center;
         padding: 80px 0 20px 0;
-        font-weight: 300;
         font-family: 'montserrat-bold';
     }
 </style>
