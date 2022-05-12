@@ -53,14 +53,13 @@
 
 <script>
 
-    // const USER_SERVICE = require('../services/UserServices')
-
-    import axios from "axios"
+    import userService from "../services/UserServices"
 
     export default {
         name: 'Signup',
         data() {
             return {
+                isError: false,
                 form: {
                     email: "",
                     name: "",
@@ -71,16 +70,14 @@
             }
         },
         methods: {
-            async signup(){                
-                await axios.post('signup', {
-                    id: '',
-                    name: this.form.name,
-                    email: this.form.email,
-                    password: this.form.password,
-                    role: this.form.role
+            signup(){                
+                userService.signup(this.form).then(res => {
+                    this.isError = false
+                    this.$router.push("/signin")
+                }).catch(err => {
+                    this.isError = true
+                    // todo : if any error
                 })
-
-                this.$router.push('/signin')
             }
         }
     }
