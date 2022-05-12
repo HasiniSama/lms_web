@@ -1,10 +1,17 @@
 <template>
     <NavBarVue />
     <section class="page-content pb-3">
-        <CourseDetailsViewForEveryone :id="id" v-if="isStudentNotEnrolled" :showEnrollOption="true" />
-        <CourseDetailsForEnrolledStudents :id="id" v-else-if="isStudentEnrolled" />
-        <CourseDetailsForConductingLecturers :id="id" v-else-if="isLecturerConducting" />
-        <CourseDetailsViewForEveryone :id="id" v-else-if="isLecturerNotConducting" :showEnrollOption="false" />
+        <div class="text-center pt-5" v-if="!loadingCompleted">
+            <div class="spinner-border mt-5" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div v-else>
+            <CourseDetailsViewForEveryone :id="id" v-if="isStudentNotEnrolled" :showEnrollOption="true" />
+            <CourseDetailsForEnrolledStudents :id="id" v-else-if="isStudentEnrolled" />
+            <CourseDetailsForConductingLecturers :id="id" v-else-if="isLecturerConducting" />
+            <CourseDetailsViewForEveryone :id="id" v-else-if="isLecturerNotConducting" :showEnrollOption="false" />
+        </div>
     </section>
 </template>
 
