@@ -25,6 +25,20 @@ class UserService {
         })
     }
 
+    async signup(form) {
+        return axios.post('signup',{
+            id: '',
+            name: form.name,
+            email: form.email,
+            password: form.password,
+            role: form.role
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
     isSigned() {
         return this.localStorageManager.isTokenAvailable
     }
