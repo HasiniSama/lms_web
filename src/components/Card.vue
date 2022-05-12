@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Course title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-success">View Course</a>
+                        <a href="#" class="btn view-btn">View Course</a>
                     </div>
                 </div>
             </div>
@@ -24,5 +24,17 @@
         box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
         padding: 20px;
         border-radius: 15px;
+    }
+    .view-btn {
+        background: #222f5b;
+        width: 100%;
+        color: #fff;
+        transition: 0.3s;
+        border-radius: 10px;
+        font-size: 17px;
+        letter-spacing: 0.8px;
+    }
+    .view-btn:hover {
+        background: #0e1a40;
     }
 </style>
