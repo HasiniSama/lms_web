@@ -42,13 +42,15 @@
             </div>
             <div class="col-md-3">
                 <h4 class="text-center mt-3">Other courses</h4>
-                <div class="enrolled-courses mt-4">
+                <p class="text-gray text-center mt-3" v-if="isEnrolledCoursesEmplty">No other courses!</p>
+                <div class="enrolled-courses mt-4" v-else>
                     <CourseListItem
                         v-for="course in enrolledCourses"
-                        :key="course.id"
-                        :id="course.id"
+                        :key="course.course_id"
+                        :id="course.course_id"
                         :name="course.name"
-                        :code="course.code"
+                        :code="course.course_code"
+                        @click="initComponent(course.course_id)"
                     />
                 </div>
             </div>
@@ -60,6 +62,9 @@
 import EmptyState from '@/components/EmptyState.vue'
 import CourseListItem from '@/components/CourseListItem.vue'
 import Accordion from '@/components/Accordion.vue'
+
+import userService from '@/services/UserServices.js'
+import courseService from '@/services/CourseService.js'
 
 export default {
     name: 'CourseDetailsForEnrolledstudents',
@@ -79,26 +84,58 @@ export default {
             lecturer: {
                 name: "John Doe"
             },
-            enrolledCourses: [
-                {id: 1, name: "Course 1", code: "SENG 12321"},
-                {id: 2, name: "Course 2", code: "SENG 12321"},
-                {id: 3, name: "Course 3", code: "SENG 12321"},
-            ],
-            announcements: [
-                {id: 1, title: "Course 1", description: "SENG 12321"},
-                {id: 2, title: "Course 2", description: "SENG 12321"},
-                {id: 3, title: "Course 3", description: "SENG 12321"},
-                {id: 4, title: "Course 4", description: "SENG 12321"},
-                {id: 5, title: "Course 5", description: "SENG 12321"},
-                {id: 6, title: "Course 6", description: "SENG 12321"},
-                {id: 7, title: "Course 7", description: "SENG 12321"},
-            ]
+            enrolledCourses: [],
+            announcements: []
+        }
+    },
+    methods: {
+        initComponent(courseId){
+
+            //course details
+            courseService.getCourseDetails(
+                courseId, userService.getToken()
+            ).then(data => {
+                this.code = data.course_code
+                this.name = data.name
+                this.description = data.description
+                this.lecturer.name = data.lecturer.name
+            }).catch(err => {
+                console.log(err);
+            })
+
+            //announcements
+            courseService.getAnnouncements(
+                courseId, userService.getToken()
+            ).then(data => {
+                this.announcements = data
+            }).catch(err => {
+                console.log(err)
+            })
+
+            //enrolled courses
+            userService.getEnrolledCourses(
+                userService.getUserDetails().id, userService.getToken()
+            ).then(data => {
+                this.enrolledCourses = data.data.filter(item => {return item.course_id != courseId})
+            }).catch(err => {
+                console.log(err)
+            })
         }
     },
     computed: {
         isAnnouncementsEmplty(){
             return this.announcements.length == 0
+        },
+        isEnrolledCoursesEmplty(){
+            return this.enrolledCourses.length == 0
         }
+    },
+    mounted(){
+        if(!userService.isSigned){
+            this.$router.push('/signin')
+            return
+        }
+        this.initComponent(this.id)
     }
 }
 </script>
