@@ -6,7 +6,7 @@
                 <h5 class="modal-title">Add New Announcement</h5>
                 <button type="button" id="modalCloseBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="post" @submit="send">
+            <form action="" method="post" @submit.prevent="send">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="a-title" class="form-label">Title</label>
@@ -27,10 +27,14 @@
 </template>
 
 <script>
+import userService from '@/services/UserServices.js'
+import lecturerService from '@/services/LecturerService.js'
+
 export default {
     name: 'NewAnnouncementModal',
     props:{
         id: String,
+        courseId: String,
         callback: Function
     },
     data(){
@@ -41,13 +45,20 @@ export default {
     },
     methods: {
         send(e){
-            e.preventDefault()
-            this.callback(this.title, this.description)
+            lecturerService.addAnnouncement(
+                {title: this.title, description: this.description},
+                this.courseId,
+                userService.getToken()
+            ).then(res => {
+                this.callback(this.title, this.description)
+                this.title = ""
+                this.description = ""
+    
+                document.getElementById('modalCloseBtn').click()
+            }).catch(err => {
+                console.log(err)
+            })
 
-            this.title = ""
-            this.description = ""
-
-            document.getElementById('modalCloseBtn').click()
         }
     }
 }

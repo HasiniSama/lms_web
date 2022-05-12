@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid px-auto px-md-5">
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-12 bg-light mb-2">
                 <h2>{{name}}</h2>
             </div>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="d-flex  mb-3 new-announcement">
-                            <NewAnnouncementModal id="new-announcement-modal" :callback="updateAnnouncements" />
+                            <NewAnnouncementModal id="new-announcement-modal" :courseId="id" :callback="updateAnnouncements" />
                             <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
                                 <i class="fa-solid fa-scroll"></i> New Announcements
                             </button>
