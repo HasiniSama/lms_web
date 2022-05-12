@@ -1,10 +1,10 @@
 <template>
     <div class="container-fluid px-auto px-md-5">
         <div class="row">
-            <div class="col-12 bg-light mb-2">
+            <div class="col-12 bg-light mb-2 mt-3">
                 <h2>{{name}}</h2>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 mt-3">
                 <nav class="ps-auto ps-md-0">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Activity</button>
@@ -14,18 +14,17 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <EmptyState title="No avtivity found!" />
+                        <EmptyState class="mt-3" title="No avtivity found!" />
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="d-flex  mb-3 new-announcement">
+                            <NewAnnouncementModal id="new-announcement-modal" :courseId="id" :callback="updateAnnouncements" />
+                            <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
+                                <i class="fa-solid fa-scroll"></i> New Announcements
+                            </button>
+                        </div>
                         <EmptyState title="No announcements found!" v-if="isAnnouncementsEmplty" />
                         <div class="announcements" v-else>
-                            <div class="d-flex  mb-3 new-announcement">
-                                <NewAnnouncementModal id="new-announcement-modal" :callback="updateAnnouncements" />
-
-                                <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
-                                    <i class="fa-solid fa-scroll"></i> New Announcements
-                                </button>
-                            </div>
                             <Accordion
                                 v-for="a in announcements" 
                                 :key="a.id" 
@@ -36,7 +35,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <section>
+                        <section class="mt-3">
                             <h2>Course Details</h2>
                             <hr>
                             <h5 class="text-gray">Course name: {{name}}</h5>
@@ -49,14 +48,15 @@
             </div>
             <div class="col-md-3">
                 <h4 class="text-center mt-3">Conducting courses</h4>
-                <div class="enrolled-courses mt-4">
+                <p class="text-gray text-center mt-3" v-if="isConductingCoursesEmpty">No other courses!</p>
+                <div class="enrolled-courses mt-4" v-else>
                     <CourseListItem
                         v-for="course in conductingCourses"
                         :key="course.course_id"
                         :id="course.course_id"
                         :name="course.name"
                         :code="course.course_code"
-                        @click="initComponent"
+                        @click="initComponent(course.course_id)"
                     />
                 </div>
             </div>
@@ -105,13 +105,13 @@ export default {
         updateAnnouncements(_title, _description) {
             this.announcements.push({id: this.announcements.length+1, title: _title, description: _description})
         },
-        initComponent(){
+        initComponent(courseId){
             this.auth.role = userService.getUserDetails().role
             this.auth.authorityCourses = userService.getUserDetails().courses
 
             //course details
             courseService.getCourseDetails(
-                this.id, userService.getToken()
+                courseId, userService.getToken()
             ).then(data => {
                 this.code = data.course_code
                 this.name = data.name
@@ -123,7 +123,7 @@ export default {
 
             //announcements
             courseService.getAnnouncements(
-                this.id, userService.getToken()
+                courseId, userService.getToken()
             ).then(data => {
                 this.announcements = data
             }).catch(err => {
@@ -134,7 +134,7 @@ export default {
             lecturerService.getOtherConductingCources(
                 userService.getUserDetails().id, userService.getToken()
             ).then(data => {
-                this.conductingCourses = data.filter(item => {return item.course_id != this.id})
+                this.conductingCourses = data.filter(item => {return item.course_id != courseId})
             }).catch(err => {
                 console.log(err)
             })
@@ -143,6 +143,9 @@ export default {
     computed: {
         isAnnouncementsEmplty(){
             return this.announcements.length == 0
+        },
+        isConductingCoursesEmpty(){
+            return this.conductingCourses.length == 0
         }
     },
     created(){
@@ -150,7 +153,17 @@ export default {
             this.$router.push('/signin')
             return
         }
-        this.initComponent()
+        lecturerService.hasAccess(
+            userService.getUserDetails().id,
+            this.id,
+            userService.getToken()
+        ).then(res => {
+            console.log(res);
+            if(!res){
+                alert("You don't have access to this course!")
+            }
+        })
+        this.initComponent(this.id)
     }
 }
 </script>

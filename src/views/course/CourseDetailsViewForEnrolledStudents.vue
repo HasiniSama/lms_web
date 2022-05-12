@@ -1,10 +1,10 @@
 <template>
     <div class="container-fluid px-auto px-md-5">
         <div class="row">
-            <div class="col-12 bg-light">
+            <div class="col-12 bg-light mt-3">
                 <h2>{{name}}</h2>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 mt-3">
                 <nav class="ps-auto ps-md-0">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Activity</button>
@@ -13,12 +13,12 @@
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="tab-pane fade show active mt-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <EmptyState title="No avtivity found!" />
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <EmptyState title="No announcements found!" v-if="isAnnouncementsEmplty" />
-                        <div class="announcements" v-else>
+                        <EmptyState class="mt-3" title="No announcements found!" v-if="isAnnouncementsEmplty" />
+                        <div class="announcements mt-3" v-else>
                             <Accordion
                                 v-for="a in announcements" 
                                 :key="a.id" 
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <section>
+                        <section class="mt-3">
                             <h2>Course Details</h2>
                             <hr>
                             <h5 class="text-gray">Course name: {{name}}</h5>
@@ -42,13 +42,15 @@
             </div>
             <div class="col-md-3">
                 <h4 class="text-center mt-3">Other courses</h4>
-                <div class="enrolled-courses mt-4">
+                <p class="text-gray text-center mt-3" v-if="isEnrolledCoursesEmpty">No other courses!</p>
+                <div class="enrolled-courses mt-4" v-else>
                     <CourseListItem
                         v-for="course in enrolledCourses"
-                        :key="course.id"
-                        :id="course.id"
+                        :key="course.course_id"
+                        :id="course.course_id"
                         :name="course.name"
-                        :code="course.code"
+                        :code="course.course_code"
+                        @click="initComponent(course.course_id)"
                     />
                 </div>
             </div>
@@ -60,6 +62,9 @@
 import EmptyState from '@/components/EmptyState.vue'
 import CourseListItem from '@/components/CourseListItem.vue'
 import Accordion from '@/components/Accordion.vue'
+
+import userService from '@/services/UserServices.js'
+import courseService from '@/services/CourseService.js'
 
 export default {
     name: 'CourseDetailsForEnrolledstudents',
@@ -79,26 +84,58 @@ export default {
             lecturer: {
                 name: "John Doe"
             },
-            enrolledCourses: [
-                {id: 1, name: "Course 1", code: "SENG 12321"},
-                {id: 2, name: "Course 2", code: "SENG 12321"},
-                {id: 3, name: "Course 3", code: "SENG 12321"},
-            ],
-            announcements: [
-                {id: 1, title: "Course 1", description: "SENG 12321"},
-                {id: 2, title: "Course 2", description: "SENG 12321"},
-                {id: 3, title: "Course 3", description: "SENG 12321"},
-                {id: 4, title: "Course 4", description: "SENG 12321"},
-                {id: 5, title: "Course 5", description: "SENG 12321"},
-                {id: 6, title: "Course 6", description: "SENG 12321"},
-                {id: 7, title: "Course 7", description: "SENG 12321"},
-            ]
+            enrolledCourses: [],
+            announcements: []
+        }
+    },
+    methods: {
+        initComponent(courseId){
+
+            //course details
+            courseService.getCourseDetails(
+                courseId, userService.getToken()
+            ).then(data => {
+                this.code = data.course_code
+                this.name = data.name
+                this.description = data.description
+                this.lecturer.name = data.lecturer.name
+            }).catch(err => {
+                console.log(err);
+            })
+
+            //announcements
+            courseService.getAnnouncements(
+                courseId, userService.getToken()
+            ).then(data => {
+                this.announcements = data
+            }).catch(err => {
+                console.log(err)
+            })
+
+            //enrolled courses
+            userService.getEnrolledCourses(
+                userService.getUserDetails().id, userService.getToken()
+            ).then(data => {
+                this.enrolledCourses = data.data.filter(item => {return item.course_id != courseId})
+            }).catch(err => {
+                console.log(err)
+            })
         }
     },
     computed: {
         isAnnouncementsEmplty(){
             return this.announcements.length == 0
+        },
+        isEnrolledCoursesEmpty(){
+            return this.enrolledCourses.length == 0
         }
+    },
+    mounted(){
+        if(!userService.isSigned){
+            this.$router.push('/signin')
+            return
+        }
+        this.initComponent(this.id)
     }
 }
 </script>

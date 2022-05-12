@@ -1,4 +1,5 @@
 import axios from "axios"
+
 class LecturerService {
     async getOtherConductingCources(lecturerId, token) {
         return axios.get(`course/all`, {
@@ -6,20 +7,29 @@ class LecturerService {
         }).then((res) => {
             return res.data.filter(item => {
                 return item.lecturer.id == lecturerId
-            });
+            })
         }).catch((err) => {
             throw err
         })
     }
-    async addAnnouncement(courseId, token) {
-        return axios.post(`lecturer/${courseId}/announcement`, {
+    async hasAccess(lecturerId, courseId, token) {
+        return axios.get(`course/all`, {
             headers: { "Authorization": `Bearer ${token}` },
-            body: {
-                title: "Test title",
-                description: "Test description",
-                course: courseId
-            }
         }).then((res) => {
+            var index = res.data.filter(item => {
+                return item.lecturer.id == lecturerId
+            }).findIndex(i => { return i.course_id == courseId })
+
+            return index == -1 ? false : true
+        }).catch((err) => {
+            throw err
+        })
+    }
+    async addAnnouncement(announcement, courseId, token) {
+        return axios.post(`lecturer/${courseId}/announcement`,
+            announcement, {
+                headers: { "Authorization": `Bearer ${token}` }
+            }).then((res) => {
             return res.data
         }).catch((err) => {
             throw err

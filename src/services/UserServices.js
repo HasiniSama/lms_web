@@ -26,7 +26,7 @@ class UserService {
     }
 
     async signup(form) {
-        return axios.post('signup',{
+        return axios.post('signup', {
             id: '',
             name: form.name,
             email: form.email,
@@ -34,6 +34,36 @@ class UserService {
             role: form.role
         }).then((res) => {
             return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
+    async enroll(studentId, courseId, token) {
+        return axios.put(`student/${studentId}/enroll/${courseId}`, {}, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
+    async getEnrolledCourses(studentId, token) {
+        return axios.get(`student/${studentId}/courses`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
+    async hasAccess(courseId) {
+        return axios.get(`student/${this.getUserDetails().id}/courses`, {
+            headers: { "Authorization": `Bearer ${this.getToken()}` },
+        }).then((res) => {
+            return res.data.findIndex(item => { return item.course_id == courseId }) != -1
         }).catch((err) => {
             throw err
         })

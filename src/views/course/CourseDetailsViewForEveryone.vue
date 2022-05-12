@@ -17,11 +17,11 @@
                     <h5 class="text-gray">Course code: {{code}}</h5>
                     <p class="text-gray">{{description}}</p>
                 </section>
-                <section class="mt-5">
+                <section class="mt-5" v-if="showEnrollOption">
                     <h2>Enrollment</h2>
                     <hr>
                     <p class="text-gray">Click the following button to self-enroll to this course.</p>
-                    <button class="btn bg-brown enroll-btn px-3 mx-auto"><strong>Enroll me</strong></button>
+                    <button class="btn bg-brown enroll-btn px-3 mx-auto" @click="enroll"><strong>Enroll me</strong></button>
                 </section>
             </div>
         </div>
@@ -29,30 +29,65 @@
 </template>
 
 <script>
+import userService from '@/services/UserServices.js'
+import courseService from '@/services/CourseService.js'
+
 export default {
     name: 'CourseDetailsForEveryone',
     props: {
-        id: Number
+        id: Number,
+        showEnrollOption: Boolean
     },
     data(){
         return{
-            code: "SENG 12234",
-            name: "Testing Mobile Applications",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque neque fugit deleniti rem dignissimos architecto rerum velit nam accusamus error beatae iure, nemo sapiente exercitationem qui tenetur facilis, aspernatur quod.",
+            code: "Loading...",
+            name: "Loading...",
+            description: "Loading...",
             lecturer: {
-                name: "John Doe"
+                name: "Loading..."
             }
+        }
+    },
+    methods: {
+        initComponent(courseId){
+            //course details
+            courseService.getCourseDetails(
+                courseId, userService.getToken()
+            ).then(data => {
+                this.code = data.course_code
+                this.name = data.name
+                this.description = data.description
+                this.lecturer.name = data.lecturer.name
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        enroll(){
+            userService.enroll(
+                userService.getUserDetails().id, this.id, userService.getToken()
+            ).then(data => {
+                console.log(data)
+            }).catch(err => {
+                console.log(err)
+            })
         }
     },
     computed: {
         lecName() {
             let names = this.lecturer.name.split(' ')
-            if(names.length>0){
+            if(names.length>1){
                 return ""+names[0][0]+names[1][0]
             }else{
                 return names[0][0]
             }
         }
+    },
+    mounted(){
+        if(!userService.isSigned){
+            this.$router.push('/signin')
+            return
+        }
+        this.initComponent(this.id)
     }
 }
 </script>
