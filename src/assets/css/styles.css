@@ -44,7 +44,13 @@ Black - #000000
     color: #2c3e50 !important;
 }
 
+.page-content {
+    margin-top: 75px;
+}
+
+
 /* Responsive Grid Design */
+
 @media (max-width: 768px) {
     .col-xs-3 {
         flex: 0 0 auto;
