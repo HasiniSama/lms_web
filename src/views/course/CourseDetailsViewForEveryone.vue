@@ -17,7 +17,7 @@
                     <h5 class="text-gray">Course code: {{code}}</h5>
                     <p class="text-gray">{{description}}</p>
                 </section>
-                <section class="mt-5">
+                <section class="mt-5" v-if="showEnrollOption">
                     <h2>Enrollment</h2>
                     <hr>
                     <p class="text-gray">Click the following button to self-enroll to this course.</p>
@@ -35,7 +35,8 @@ import courseService from '@/services/CourseService.js'
 export default {
     name: 'CourseDetailsForEveryone',
     props: {
-        id: Number
+        id: Number,
+        showEnrollOption: Boolean
     },
     data(){
         return{
