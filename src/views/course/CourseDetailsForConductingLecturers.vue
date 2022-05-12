@@ -55,7 +55,7 @@
                         :id="course.course_id"
                         :name="course.name"
                         :code="course.course_code"
-                        @click="initComponent"
+                        @click="initComponent(course.course_id)"
                     />
                 </div>
             </div>
@@ -104,13 +104,13 @@ export default {
         updateAnnouncements(_title, _description) {
             this.announcements.push({id: this.announcements.length+1, title: _title, description: _description})
         },
-        initComponent(){
+        initComponent(courseId){
             this.auth.role = userService.getUserDetails().role
             this.auth.authorityCourses = userService.getUserDetails().courses
 
             //course details
             courseService.getCourseDetails(
-                this.id, userService.getToken()
+                courseId, userService.getToken()
             ).then(data => {
                 this.code = data.course_code
                 this.name = data.name
@@ -122,7 +122,7 @@ export default {
 
             //announcements
             courseService.getAnnouncements(
-                this.id, userService.getToken()
+                courseId, userService.getToken()
             ).then(data => {
                 this.announcements = data
             }).catch(err => {
@@ -133,7 +133,7 @@ export default {
             lecturerService.getOtherConductingCources(
                 userService.getUserDetails().id, userService.getToken()
             ).then(data => {
-                this.conductingCourses = data.filter(item => {return item.course_id != this.id})
+                this.conductingCourses = data.filter(item => {return item.course_id != courseId})
             }).catch(err => {
                 console.log(err)
             })
@@ -159,7 +159,7 @@ export default {
                 alert("You don't have access to this course!")
             }
         })
-        this.initComponent()
+        this.initComponent(this.id)
     }
 }
 </script>
