@@ -25,15 +25,11 @@ class LecturerService {
             throw err
         })
     }
-    async addAnnouncement(courseId, token) {
-        return axios.post(`lecturer/${courseId}/announcement`, {
-            headers: { "Authorization": `Bearer ${token}` },
-            body: {
-                title: "Test title",
-                description: "Test description",
-                course: courseId
-            }
-        }).then((res) => {
+    async addAnnouncement(announcement, courseId, token) {
+        return axios.post(`lecturer/${courseId}/announcement`,
+            announcement, {
+                headers: { "Authorization": `Bearer ${token}` }
+            }).then((res) => {
             return res.data
         }).catch((err) => {
             throw err
