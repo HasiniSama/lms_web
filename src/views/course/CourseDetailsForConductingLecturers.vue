@@ -9,12 +9,37 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Activity</button>
                         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Announcements</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-marks" type="button" role="tab" aria-controls="nav-marks" aria-selected="false">Marks</button>
                         <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Details</button>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <EmptyState class="mt-3" title="No avtivity found!" />
+                    </div>
+                    <div class="tab-pane fade show" id="nav-marks" role="tabpanel" aria-labelledby="nav-marks-tab">
+                        <table class="table table-hover mt-3">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Student ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" style="width: 170px;">Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(stu, i) in enrolledStudents" :key="stu.id">
+                                    <th scope="row">{{++i}}</th>
+                                    <td>{{stu.id}}</td>
+                                    <td>{{stu.name}}</td>
+                                    <td>{{stu.name}}</td>
+                                    <td>
+                                        <CourseMarksAssignForm :studentId="stu.id" :courseId="id" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="d-flex  mb-3 new-announcement">
@@ -69,6 +94,7 @@ import EmptyState from '@/components/EmptyState.vue'
 import CourseListItem from '@/components/CourseListItem.vue'
 import Accordion from '@/components/Accordion.vue'
 import NewAnnouncementModal from '@/components/NewAnnouncementModal.vue'
+import CourseMarksAssignForm from '@/components/CourseMarksAssignForm.vue'
 
 import userService from '@/services/UserServices.js'
 import courseService from '@/services/CourseService.js'
@@ -80,7 +106,8 @@ export default {
         EmptyState,
         CourseListItem,
         Accordion,
-        NewAnnouncementModal
+        NewAnnouncementModal,
+        CourseMarksAssignForm
     },
     props: {
         id: String
@@ -98,7 +125,8 @@ export default {
                 name: "John Doe"
             },
             conductingCourses: [],
-            announcements: []
+            announcements: [],
+            enrolledStudents: []
         }
     },
     methods: {
@@ -153,17 +181,13 @@ export default {
             this.$router.push('/signin')
             return
         }
-        lecturerService.hasAccess(
-            userService.getUserDetails().id,
-            this.id,
-            userService.getToken()
-        ).then(res => {
-            console.log(res);
-            if(!res){
-                alert("You don't have access to this course!")
-            }
-        })
         this.initComponent(this.id)
+
+        lecturerService.getEnrolledStudents(this.id, userService.getToken()).then(res => {
+            this.enrolledStudents = res
+        }).catch(err => {
+            console.log(err)
+        })
     }
 }
 </script>
