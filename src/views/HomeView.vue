@@ -4,7 +4,7 @@
     <div class="containr-fluid">
       <div class="row pt-5">
         <div class="col-md-6">
-          <h2>Hello Devid</h2>
+          <h2>Hello {{student.name}}</h2>
           <h5>Welcome back !</h5>
         </div>
         <div class="col-md-6">
@@ -40,15 +40,36 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import NavBarVue from '@/components/NavBar.vue'
+import CourseCard from '@/components/Card.vue'
 import Footer from '@/components/Footer.vue'
+
+import userService from '@/services/UserServices.js'
+import courseService from '@/services/CourseService.js'
 
 export default {
   name: 'HomeView',
   components: {
     HelloWorld,
     NavBarVue,
-    Footer
+    Footer,
+    CourseCard
+  },
+
+  data(){
+    return{
+      student:{
+        name:"Loading..."
+      }
+    }
+  },
+
+  methods:{
+
+    
+
+
   }
+
 }
 </script>
 <style>
@@ -66,4 +87,5 @@ h5{
   background-color: lightgray;
   border-radius: 3vh;
 }
+
 </style>
