@@ -6,6 +6,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-3 mx-auto align-items-center" v-for="course in allCourses" :key="course.course_id">
                     <CardVue
+                        :id="course.course_id"
                         :code="course.course_code" 
                         :title="course.name" 
                         :lecturer="course.lecturer.name"
@@ -42,7 +43,6 @@ export default {
                 userService.getToken()
             ).then(data => {
                 this.allCourses = data
-                console.log(this.allCourses);
             }).catch(err => {
                 console.log(err);
             })
