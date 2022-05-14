@@ -17,17 +17,21 @@
     </div>
     <div class="container-fluid ">
       <div class="row pt-5">
-        <h3 >Enrolled courses</h3>
-        <div class="p-3" >
+        <h3 class="p-3" >Enrolled courses</h3>
+        
           <CourseCard 
-            class="col-md-3"
+            
             v-for="enrolledCourse in enrolledCourses"
             :key="enrolledCourse.course_id"
-            :id="enrolledCourse.course_id"
+            :code="enrolledCourse.course_code"
             :title="enrolledCourse.name"
+            :lecturer="enrolledCourse.lecturer.name"
+            :description="enrolledCourse.description"
+
+
           />
 
-        </div>
+      
         
       </div>
     </div>

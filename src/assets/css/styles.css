@@ -8,6 +8,15 @@
     src: url('../font/sf-pro.otf');
 }
 
+@font-face {
+    font-family: 'montserrat';
+    src: url('../font/montserrat-v14-latin-regular.woff');
+}
+
+@font-face {
+    font-family: 'montserrat-bold';
+    src: url('../font/montserrat-v14-latin-700.woff');
+}
 
 /* 
 
