@@ -5,9 +5,10 @@
                 <div class="courses-card justify-content-center bg-light-brown">
                     <img src="../assets/img/sample-img.png" class="card-img" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Course title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn view-btn">View Course</a>
+                        <h5 class="card-title">{{title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{code}}</h6>
+                        <h6 class="mt-1 card-subtitle mb-2">Conducted by :  {{lecturer}}</h6>
+                        <a href="#" class="mt-3 btn view-btn">View Course</a>
                     </div>
                 </div>
             </div>
@@ -15,6 +16,17 @@
     </section>
 </template>
 
+<script>
+export default {
+    name: 'Card',
+    props: {
+        code: String,
+        title: String,
+        lecturer: String,
+        description: String
+    }
+}
+</script>
 
 <style scoped>
     .card-title {
