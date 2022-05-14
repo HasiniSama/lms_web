@@ -4,31 +4,13 @@
         <div class="container-fluid">
             <h1>All Courses</h1>
             <div class="row">
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>  
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
-                </div>
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center">
-                    <CardVue/>
+                <div class="col-sm-12 col-md-3 mx-auto align-items-center" v-for="course in allCourses" :key="course.course_id">
+                    <CardVue
+                        :code="course.course_code" 
+                        :title="course.name" 
+                        :lecturer="course.lecturer.name"
+                        :description="course.description"
+                    />
                 </div>
             </div>
         </div>
@@ -60,7 +42,7 @@ export default {
                 userService.getToken()
             ).then(data => {
                 this.allCourses = data
-                console.log(allCourses);
+                console.log(this.allCourses);
             }).catch(err => {
                 console.log(err);
             })
@@ -82,8 +64,9 @@ export default {
         padding: 30px 0;
     }
     .courses h1 {
-        font-size: 28px;
+        font-size: 30px;
         text-align: center;
-        padding: 60px 0;
+        padding: 80px 0 20px 0;
+        font-family: 'montserrat-bold';
     }
 </style>

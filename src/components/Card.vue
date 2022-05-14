@@ -5,9 +5,10 @@
                 <div class="courses-card justify-content-center bg-light-brown">
                     <img src="../assets/img/sample-img.png" class="card-img" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Course title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-success">View Course</a>
+                        <h5 class="card-title">{{title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{code}}</h6>
+                        <h6 class="mt-1 card-subtitle mb-2">Conducted by :  {{lecturer}}</h6>
+                        <a href="#" class="mt-3 btn view-btn">View Course</a>
                     </div>
                 </div>
             </div>
@@ -15,8 +16,24 @@
     </section>
 </template>
 
+<script>
+export default {
+    name: 'Card',
+    props: {
+        code: String,
+        title: String,
+        lecturer: String,
+        description: String
+    }
+}
+</script>
 
 <style scoped>
+    .card-title {
+        font-size: 24px;
+        font-family: 'montserrat-bold';
+        font-weight: 300;
+    }
     .courses-card {
         position: relative;
         overflow: hidden;
@@ -24,5 +41,17 @@
         box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
         padding: 20px;
         border-radius: 15px;
+    }
+    .view-btn {
+        background: #222f5b;
+        width: 100%;
+        color: #fff;
+        transition: 0.3s;
+        border-radius: 10px;
+        font-size: 17px;
+        letter-spacing: 0.8px;
+    }
+    .view-btn:hover {
+        background: #0e1a40;
     }
 </style>
