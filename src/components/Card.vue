@@ -8,7 +8,7 @@
                         <h5 class="card-title">{{title}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{code}}</h6>
                         <h6 class="mt-1 card-subtitle mb-2">Conducted by :  {{lecturer}}</h6>
-                        <a href="#" class="mt-3 btn view-btn">View Course</a>
+                        <router-link :to="'/course/'+id" class="mt-3 btn view-btn nav-link active" aria-current="page">View Course</router-link>
                     </div>
                 </div>
             </div>
@@ -20,6 +20,7 @@
 export default {
     name: 'Card',
     props: {
+        id:Number,
         code: String,
         title: String,
         lecturer: String,
