@@ -18,18 +18,17 @@
     <div class="container-fluid ">
       <div class="row pt-5">
         <h3 >Enrolled courses</h3>
-        <div class="col-md-3 pt-3">
-          <CourseCard />
+        <div class="p-3" >
+          <CourseCard 
+            class="col-md-3"
+            v-for="enrolledCourse in enrolledCourses"
+            :key="enrolledCourse.course_id"
+            :id="enrolledCourse.course_id"
+            :title="enrolledCourse.name"
+          />
+
         </div>
-          <div class="col-md-3 pt-3">
-          <CourseCard />
-        </div>
-          <div class="col-md-3 pt-3">
-          <CourseCard />
-        </div>
-          <div class="col-md-3 pt-3">
-          <CourseCard />
-        </div>
+        
       </div>
     </div>
   </div>
@@ -45,6 +44,7 @@ import Footer from '@/components/Footer.vue'
 
 import userService from '@/services/UserServices.js'
 import courseService from '@/services/CourseService.js'
+import studentService from '@/services/StudentService.js'
 
 export default {
   name: 'HomeView',
@@ -57,17 +57,39 @@ export default {
 
   data(){
     return{
-      student:{
-        name:"Loading..."
-      }
+      enrolledCourses: [],
+      student: {}
     }
   },
 
   methods:{
 
-    
+    initDashboard(){
+      userService.getEnrolledCourses(
+        userService.getUserDetails().id,
+        userService.getToken()
+      ).then(res => {
+        console.log(res.data)
+        this.enrolledCourses=res.data
+      }).catch(err=>{
+        console.log(err)
+      })
 
+      userService.getStudentDetails(
+        userService.getUserDetails().id,
+        userService.getToken()
+      ).then(res => {
+        this.student = res
+      }).catch(err => {
+        console.log(err);
+      })
+      
 
+    }
+  },
+
+  created(){
+    this.initDashboard()
   }
 
 }

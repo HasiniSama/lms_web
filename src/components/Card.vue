@@ -5,8 +5,8 @@
                 <div class="courses-card justify-content-center bg-light-brown">
                     <img src="../assets/img/sample-img.png" class="card-img" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{Course.title}}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h4 class="card-title">{{Course.id}}</h4>
+                        <h5 class="card-text">{{Course.title}}</h5>
                         <a href="#" class="btn btn-success">View Course</a>
                     </div>
                 </div>
@@ -24,12 +24,14 @@ export default {
     data(){
         return{
             Course:{
-            title:"Loading..."
+            title:"Loading...",
+            id:"SENG 12213"
             }
         }
     },
 
     props:{
+        id:String,
         courseTitle:String
     }
 
