@@ -7,10 +7,10 @@
             <div class="col-md-9 mt-3">
                 <nav class="ps-auto ps-md-0">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Activity</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Announcements</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-marks" type="button" role="tab" aria-controls="nav-marks" aria-selected="false">Marks</button>
-                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Details</button>
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-chart-line"></i>Activity</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-scroll"></i>Announcements</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-marks" type="button" role="tab" aria-controls="nav-marks" aria-selected="false"><i class="fa-solid fa-marker"></i>Marks</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fa-solid fa-circle-info"></i>Details</button>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -45,7 +45,8 @@
                         <div class="d-flex  mb-3 new-announcement">
                             <NewAnnouncementModal id="new-announcement-modal" :courseId="id" :callback="updateAnnouncements" />
                             <button class="btn mx-auto ms-md-auto me-md-0 mt-2" data-bs-toggle="modal" data-bs-target="#new-announcement-modal">
-                                <i class="fa-solid fa-scroll"></i> New Announcements
+                                <!-- <i class="fa-solid fa-scroll"></i>New Announcements -->
+                                <i class="fa-solid fa-circle-plus"></i>Add new
                             </button>
                         </div>
                         <EmptyState title="No announcements found!" v-if="isAnnouncementsEmplty" />
@@ -208,5 +209,8 @@ export default {
     .new-announcement .btn:hover{
         background-color: #946B2D;
         color: white;
+    }
+    i{
+        margin-right: 8px;
     }
 </style>
