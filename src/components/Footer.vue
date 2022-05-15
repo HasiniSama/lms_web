@@ -51,5 +51,10 @@
 <style>
 .footer {
     background-color:black;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
 }
 </style>
