@@ -59,6 +59,16 @@ class UserService {
         })
     }
 
+    async getStudentDetails(studentId, token) {
+        return axios.get(`student/${studentId}`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
+
     async hasAccess(courseId) {
         return axios.get(`student/${this.getUserDetails().id}/courses`, {
             headers: { "Authorization": `Bearer ${this.getToken()}` },
@@ -89,6 +99,9 @@ class UserService {
         const decoded = Buffer.from(tokenDecodablePart, 'base64').toString();
         return JSON.parse(decoded)
     }
+
+
+
 }
 
 export default new UserService()
