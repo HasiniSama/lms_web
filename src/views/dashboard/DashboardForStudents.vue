@@ -20,6 +20,7 @@
           <CourseCard 
             v-for="enrolledCourse in enrolledCourses"
             :key="enrolledCourse.course_id"
+            :id="enrolledCourse.course_id"
             :code="enrolledCourse.course_code"
             :title="enrolledCourse.name"
             :lecturer="enrolledCourse.lecturer.name"
