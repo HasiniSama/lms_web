@@ -1,32 +1,28 @@
+
+   
 <template>
+  <!-- <NavBarVue/>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/profile">Profile</router-link>
-  </nav>
+    <router-link to="/about">About</router-link>
+  </nav> -->
   <router-view/>
-  
 </template>
 
 <style>
+/* Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
+@font-face {
+  font-family: "sf-pro";
+  src: local("sf-pro"),
+   url('assets/font/sf-pro.otf') format("truetype");
+}
+/* Apply global css classes */
+@import url('assets/css/styles.css');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'sf-pro', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

@@ -68,7 +68,7 @@
                                     <label for="disabledTextInput" class="form-label">Current GPA: </label>
                                     <label for="disabledTextInput" class="form-label m-4" >3.2</label>
                             </div>
-                            <div id="curve_chart"><Linechart /></div>
+                            <!-- <div id="curve_chart"><Linechart /></div> -->
                         </div>
                         <div class="tab-pane fade" id="pills-edit" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <form>
@@ -178,12 +178,12 @@
 }
 </style>
 <script>
-import LineChart from '@/components/Line.vue'
+
 
 export default {
   name: 'Profile',
   components: {
-    LineChart
+    
   }
 }
 </script>

@@ -4,7 +4,19 @@ const routes = [{
         path: '/',
         name: 'home',
         component: () =>
-            import ('../views/AboutView.vue')
+            import ('../views/HomeView.vue')
+    },
+    {
+        path: '/signin',
+        name: 'signin',
+        component: () =>
+            import ('../views/SigninView.vue')
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () =>
+            import ('../views/SignupView.vue')
     },
     {
         path: '/about',
@@ -16,7 +28,23 @@ const routes = [{
         path: '/profile',
         name: 'profile',
         component: () =>
-            import ('../views/ProfileView.vue')
+            import ('../views/ProfileView.vue')},{
+        path: '/course/:id',
+        name: 'course-details',
+        component: () =>
+            import ('../views/CourseDetailsView.vue')
+    },
+    {
+        path: '/courses',
+        name: 'courses',
+        component: () =>
+            import ('../views/CoursesView.vue')
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'error',
+        component: () =>
+            import ('../views/ErrorView.vue')
     }
 ]
 

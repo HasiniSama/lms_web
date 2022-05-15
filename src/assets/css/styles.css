@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'sf-pro-light';
+    src: url('../font/sf-pro-light.otf');
+}
+
+@font-face {
+    font-family: 'sf-pro';
+    src: url('../font/sf-pro.otf');
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('../font/montserrat-v14-latin-regular.woff');
+}
+
+@font-face {
+    font-family: 'montserrat-bold';
+    src: url('../font/montserrat-v14-latin-700.woff');
+}
+
+/* 
+
+Dark blue - #0E1A40
+Light blue - #222F5B
+Gray - #5D5D5D
+Brown - #946B2D
+Black - #000000
+
+*/
+
+.nolink {
+    text-decoration: none;
+    color: #2c3e50;
+}
+
+.bg-light-brown {
+    background-color: #946b2d08;
+}
+
+.bg-brown {
+    background-color: #946B2D;
+}
+
+.text-brown {
+    color: #946B2D;
+}
+
+.text-gray {
+    color: rgb(126, 126, 126);
+}
+
+.text-black {
+    color: #2c3e50 !important;
+}
+
+.page-content {
+    margin-top: 75px;
+}
+
+
+/* Responsive Grid Design */
+
+@media (max-width: 768px) {
+    .col-xs-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-xs-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-xs-8 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-xs-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
