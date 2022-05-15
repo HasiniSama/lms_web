@@ -16,11 +16,13 @@
             </div>
         </div>
     </section>
+    <Footer />
 </template>
 
 <script>
 import NavBarVue from '@/components/NavBar.vue'
 import CardVue from '@/components/Card.vue'
+import Footer from '@/components/Footer.vue'
 
 import userService from '@/services/UserServices.js'
 import courseService from '@/services/CourseService.js'
@@ -29,7 +31,8 @@ export default {
     name: 'Courses',
     components: {
         NavBarVue,
-        CardVue
+        CardVue,
+        Footer
     },
     data(){
         return{

@@ -13,6 +13,7 @@
             <CourseDetailsViewForEveryone :id="id" v-else-if="isLecturerNotConducting" :showEnrollOption="false" />
         </div>
     </section>
+    <Footer />
 </template>
 
 <script>
@@ -23,6 +24,7 @@ import NavBarVue from '@/components/NavBar.vue'
 import CourseDetailsViewForEveryone from './course/CourseDetailsViewForEveryone.vue'
 import CourseDetailsForEnrolledStudents from './course/CourseDetailsViewForEnrolledStudents.vue'
 import CourseDetailsForConductingLecturers from './course/CourseDetailsForConductingLecturers.vue'
+import Footer from '@/components/Footer.vue'
 
 import userService from '@/services/UserServices.js'
 import lectureService from '@/services/LecturerService.js'
@@ -33,7 +35,8 @@ export default {
         NavBarVue,
         CourseDetailsViewForEveryone,
         CourseDetailsForEnrolledStudents,
-        CourseDetailsForConductingLecturers
+        CourseDetailsForConductingLecturers,
+        Footer
     },
     data(){
         return{
@@ -87,5 +90,13 @@ export default {
 </script>
 
 <style scoped>
+.page-content{
+    height: 600px;
+}
 
+@media only screen and (max-width: 600px) {
+    .page-content{
+        height: 700px;
+    }
+}
 </style>
