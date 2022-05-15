@@ -53,31 +53,31 @@ export default {
   methods:{
 
     initDashboard(){
-      // lecturerService.getConductingCources(
-      //   userService.getUserDetails().id,
-      //   userService.getToken()
-      // ).then(res => {
-      //  console.log(res)
-      //   this.conductingCourses=res.data
-      // }).catch(err=>{
-      //   console.log(err)
-      // })
-
-      lecturerService.getOtherConductingCources(
-        userService.getUserDetails().id,userService.getToken()
-      ).then(res=>{
-        console.log(res)
-
+      lecturerService.getConductingCourses(
+        userService.getUserDetails().id,
+        userService.getToken()
+      ).then(res => {
+       
+        this.conductingCourses=res
       }).catch(err=>{
         console.log(err)
       })
+
+      // lecturerService.getOtherConductingCources(
+      //   userService.getUserDetails().id,userService.getToken()
+      // ).then(res=>{
+      //   console.log(res)
+      //   this.conductingCourses = res;
+      // }).catch(err=>{
+      //   console.log(err)
+      // })
       
 
       lecturerService.getLecturerDetails(
         userService.getUserDetails().id,
         userService.getToken()
       ).then(res => {
-        console.log(res)
+        
         this.lecturer = res
       }).catch(err => {
         console.log(err);

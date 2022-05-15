@@ -16,7 +16,7 @@ class LecturerService {
         return axios.get(`lecturer/${lecturerId}/courses`, {
             headers: { "Authorization": `Bearer ${token}` },
         }).then((res) => {
-            return res
+            return res.data
         }).catch((err) => {
             throw err
         })
