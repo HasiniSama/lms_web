@@ -2,11 +2,11 @@
   <div class="container-fluid profile p-5">
     <div class="row justify-content-center">
          <div class="col-md-4 profile-picture">
-            <div class="row justify-content-center">
-                <div class="col ">
-                    <img src="@/assets/profile/owl.png" alt="">
+            <div class="row d-grid">
+                <div class="d-flex">
+                    <img src="@/assets/profile/teacher.png" alt="" class="mx-auto">
                 </div>
-                <div class="sub-head pt-3">
+                <div class="sub-head pt-3 text-center">
                     <h5  id="name">{{lecturer.name}}</h5>
                     <h6  id="studentId">Lecturer Id: {{lecturer.id}}</h6>
                 </div>
@@ -61,7 +61,12 @@
                                     <label for="disabledTextInput" class="form-label m-4" >3.2</label>
                             </div>
                             <CourseItem 
-                                key=""
+                                v-for="conductingCourse in conductingCourses"
+                                :key="conductingCourse.course_id"
+                                :id="conductingCourse.course_code"
+                                :name="conductingCourse.name"
+                                :numberTexts="24"
+
                             />
                             <!-- <div id="curve_chart"><Linechart /></div> -->
                         </div>
@@ -71,17 +76,17 @@
                                 
                                     <div class="mb-3">
                                     <label for="disabledTextInput" class="form-label">Name :</label>
-                                    <input type="text" id="studentName" class="form-control" placeholder="Disabled input">
+                                    <input type="text" id="studentName" class="form-control" v-model="lecturer.name">
                                     </div>
                                     
                                     <div class="mb-3">
                                     <label for="disabledTextInput" class="form-label">Lecturer ID :</label>
-                                    <input type="text" id="studentID" class="form-control " placeholder="Disabled input">
+                                    <input type="text" id="studentID" class="form-control " :placeholder="lecturer.id" readonly>
                                     </div>
 
                                     <div class="mb-3">
                                     <label for="disabledTextInput" class="form-label">Email :</label>
-                                    <input type="text" id="degree" class="form-control" placeholder="Disabled input">
+                                    <input type="text" id="degree" class="form-control" v-model="lecturer.email">
                                     </div>
                                 
                                     
@@ -195,10 +200,20 @@ export default {
       }).catch(err => {
         console.log(err);
       })
-      }
-      //get conducting courses
-      
+
+        //get conducting courses
+        lecturerService.getConductingCourses(
+        userService.getUserDetails().id,
+        userService.getToken()
+        ).then(res=>{
+            console.log(res)
+            this.conductingCourses=res.data
+        }).catch(err => {
+            console.log(err);
+        })
         
+      }
+      
   },
   created(){
       this.intitProfile();

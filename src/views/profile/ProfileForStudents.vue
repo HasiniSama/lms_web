@@ -2,11 +2,11 @@
   <div class="container-fluid profile p-5">
     <div class="row justify-content-center">
          <div class="col-md-4 profile-picture">
-            <div class="row justify-content-center">
-                <div class="col ">
-                    <img src="@/assets/profile/owl.png" alt="">
+            <div class="row d-grid">
+                <div class="d-flex">
+                    <img src="@/assets/profile/undergraduate.png" alt="" class="mx-auto">
                 </div>
-                <div class="sub-head pt-3">
+                <div class="sub-head text-center pt-3">
                     <h5  id="name">{{student.name}}</h5>
                     <h6  id="studentId">Student Id: {{student.id}}</h6>
                 </div>
@@ -65,32 +65,30 @@
                                 :key="enrolledCourse.course_id"
                                 :id="enrolledCourse.course_code"
                                 :name="enrolledCourse.name"
-                                :numberText="24"
+                                :numberTexts="24"
 
                             />
                             <!-- <div id="curve_chart"><Linechart /></div> -->
                         </div>
                         <div class="tab-pane fade" id="pills-edit" role="tabpanel" aria-labelledby="pills-contact-tab">
-                            <form>
+                            <form @submit.prevent="updateUserDetails">
                                 <fieldset>
                                 
                                     <div class="mb-3">
-                                    <label for="disabledTextInput" class="form-label">Name :</label>
-                                    <input type="text" id="studentName" class="form-control" placeholder="Disabled input">
+                                    <label for="disabledTextInput" class="form-label">Name : </label>
+                                    <input type="text" id="studentName" class="form-control" v-model="student.name">
                                     </div>
                                     
                                     <div class="mb-3">
                                     <label for="disabledTextInput" class="form-label">Student ID :</label>
-                                    <input type="text" id="studentID" class="form-control " placeholder="Disabled input">
+                                    <input type="text" id="studentID" class="form-control" :placeholder="student.id" readonly>
                                     </div>
 
                                     <div class="mb-3">
                                     <label for="disabledTextInput" class="form-label">Email :</label>
-                                    <input type="text" id="degree" class="form-control" placeholder="Disabled input">
+                                    <input type="text" id="degree" class="form-control" v-model="student.email">
                                     </div>
                                 
-                                    
-
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </fieldset>
                             </form>
@@ -171,8 +169,9 @@
 </style>
 <script>
 import userService from '@/services/UserServices'
+import studentService from '@/services/StudentService'
 import CourseItem from '@/components/CourseItem.vue'
-import userService from '@/services/UserServices'
+
 
 
 export default {
@@ -183,8 +182,13 @@ export default {
   },
   data(){
       return {
-          student:{},
-          enrolledCourses:[]
+          student:{
+              id: "",
+              name: "",
+              email: ""
+          },
+          enrolledCourses:[],
+          
     }
   },
   methods:{
@@ -206,17 +210,34 @@ export default {
         userService.getUserDetails().id,
         userService.getToken()
       ).then(res => {
-        console.log(this.isStudent)
         this.enrolledCourses=res.data
+        console.log(res.data)
       }).catch(err=>{
         console.log(err)
       })
 
-      }
+      },
         
+
+        updateUserDetails(){
+            console.log(this.student);
+            //todo: update fuction 
+        },
+
+        getMarks(){
+            studentService.getMarks(userService.getUserDetails().id,4,userService.getToken()
+            ).then(res =>{
+                console.log(res)
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
+
+  
   },
   created(){
       this.intitProfile();
+      
   }
 }
 </script>
