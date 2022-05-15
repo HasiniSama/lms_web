@@ -87,7 +87,7 @@ class UserService {
         return this.localStorageManager.token
     }
 
-    signout() {
+    async signout() {
         this.localStorageManager.removeAllTokens()
     }
 

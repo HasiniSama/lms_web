@@ -22,7 +22,7 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><router-link to="/profile" class="dropdown-item d-flex justify-content-between">Your Profile<i class="fa-lg my-auto fa-solid fa-circle-user"></i></router-link></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><router-link to="/profile" class="dropdown-item d-flex justify-content-between">Logout<i class="my-auto fa-solid fa-arrow-right-from-bracket"></i></router-link></li>
+                            <li><a  @click.prevent="logout" class="dropdown-item d-flex justify-content-between">Logout<i class="my-auto fa-solid fa-arrow-right-from-bracket"></i></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -72,22 +72,35 @@ router-link.dropdown-item{
 
 </style>
 
-<!-- <script>
+<script>
+
+    import userService from "../services/UserServices"
+
     export default{
         name: 'NavBar',
-        created() {
-            window.addEventListener("load", function(event) {
-                var nav = document.querySelector('nav')
-                window.addEventListener('scroll', function(){
-                    if(this.window.pageYOffset > 50){
-                        nav.classList.add('blue','navbar-dark','shadow')
-                        nav.classList.remove('mt-3','blue-text')
-                    }else{
-                        nav.classList.remove('blue','navbar-dark','shadow')
-                        nav.classList.add('mt-3', 'blue-text')
-                    }
+        methods: {
+            logout(){
+                userService.signout().then(() => {
+                    console.log("User signing out..")
+                    this.$router.push("/signin")
+                }).catch(err => {
+                    console.log(err)
                 })
-            })
-        },
+            }
+        }
+        // created() {
+        //     window.addEventListener("load", function(event) {
+        //         var nav = document.querySelector('nav')
+        //         window.addEventListener('scroll', function(){
+        //             if(this.window.pageYOffset > 50){
+        //                 nav.classList.add('blue','navbar-dark','shadow')
+        //                 nav.classList.remove('mt-3','blue-text')
+        //             }else{
+        //                 nav.classList.remove('blue','navbar-dark','shadow')
+        //                 nav.classList.add('mt-3', 'blue-text')
+        //             }
+        //         })
+        //     })
+        // },
     }
-</script> -->
+</script>
