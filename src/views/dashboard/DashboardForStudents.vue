@@ -52,6 +52,7 @@ export default {
   methods:{
 
     initDashboard(){
+      //getting enrolled courses
       userService.getEnrolledCourses(
         userService.getUserDetails().id,
         userService.getToken()
@@ -61,7 +62,7 @@ export default {
       }).catch(err=>{
         console.log(err)
       })
-
+    //getting student details
       userService.getStudentDetails(
         userService.getUserDetails().id,
         userService.getToken()

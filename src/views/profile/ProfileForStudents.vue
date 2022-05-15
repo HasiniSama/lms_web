@@ -60,6 +60,14 @@
                                     <label for="disabledTextInput" class="form-label">Current GPA: </label>
                                     <label for="disabledTextInput" class="form-label m-4" >3.2</label>
                             </div>
+                            <CourseItem 
+                                v-for="enrolledCourse in enrolledCourses"
+                                :key="enrolledCourse.course_id"
+                                :id="enrolledCourse.course_code"
+                                :name="enrolledCourse.name"
+                                :numberText="24"
+
+                            />
                             <!-- <div id="curve_chart"><Linechart /></div> -->
                         </div>
                         <div class="tab-pane fade" id="pills-edit" role="tabpanel" aria-labelledby="pills-contact-tab">
@@ -163,16 +171,20 @@
 </style>
 <script>
 import userService from '@/services/UserServices'
+import CourseItem from '@/components/CourseItem.vue'
+import userService from '@/services/UserServices'
 
 
 export default {
   name: 'Profile',
   components: {
+    CourseItem
     
   },
   data(){
       return {
-          student:{}
+          student:{},
+          enrolledCourses:[]
     }
   },
   methods:{
@@ -188,6 +200,18 @@ export default {
         }).catch(err => {
             console.log(err);
         })
+        //getting enrolled courses
+        
+        userService.getEnrolledCourses(
+        userService.getUserDetails().id,
+        userService.getToken()
+      ).then(res => {
+        console.log(this.isStudent)
+        this.enrolledCourses=res.data
+      }).catch(err=>{
+        console.log(err)
+      })
+
       }
         
   },

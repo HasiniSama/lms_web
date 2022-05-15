@@ -6,7 +6,7 @@
             <div class="fw-bold">{{course.name}}</div>
             {{course.id}}
             </div>
-            <span class="badge bg-primary rounded-pill">{{course.enrolledStudents}}</span>
+            <span class="badge bg-primary rounded-pill">{{course.numberText}}</span>
         </li>
         
     </ul>
@@ -20,7 +20,7 @@ export default {
         course:{
             id:Number,
             name:String,
-            enrolledSTudents:Number
+            numberTexts:Number
         }
     }
 }
