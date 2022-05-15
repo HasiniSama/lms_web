@@ -18,12 +18,12 @@
       <div class="row pt-5">
         <h3 class="p-3" >Conducting courses</h3>
           <CourseCard 
-            v-for="enrolledCourse in enrolledCourses"
-            :key="enrolledCourse.course_id"
-            :code="enrolledCourse.course_code"
-            :title="enrolledCourse.name"
-            :lecturer="enrolledCourse.lecturer.name"
-            :description="enrolledCourse.description"
+            v-for="conductingCourse in conductingCourses"
+            :key="conductingCourse.course_id"
+            :code="conductingCourse.course_code"
+            :title="conductingCourse.name"
+            :lecturer="conductingCourse.lecturer.name"
+            :description="conductingCourse.description"
           />
       </div>
     </div>
@@ -35,6 +35,7 @@
 import CourseCard from '@/components/Card.vue'
 
 import userService from '@/services/UserServices.js'
+import lecturerService from '@/services/LecturerService'
 
 export default {
   name: 'DashboardForLectures',
@@ -44,37 +45,45 @@ export default {
 
   data(){
     return{
-      enrolledCourses: [],
-      student: {}
+      conductingCourses: [],
+      lecturer: {}
     }
   },
 
   methods:{
 
     initDashboard(){
-      userService.getEnrolledCourses(
-        userService.getUserDetails().id,
-        userService.getToken()
-      ).then(res => {
-        console.log(this.isStudent)
-        this.enrolledCourses=res.data
+      // lecturerService.getConductingCources(
+      //   userService.getUserDetails().id,
+      //   userService.getToken()
+      // ).then(res => {
+      //  console.log(res)
+      //   this.conductingCourses=res.data
+      // }).catch(err=>{
+      //   console.log(err)
+      // })
+
+      lecturerService.getOtherConductingCources(
+        userService.getUserDetails().id,userService.getToken()
+      ).then(res=>{
+        console.log(res)
+
       }).catch(err=>{
         console.log(err)
       })
+      
 
-      userService.getStudentDetails(
+      lecturerService.getLecturerDetails(
         userService.getUserDetails().id,
         userService.getToken()
       ).then(res => {
-        this.student = res
+        console.log(res)
+        this.lecturer = res
       }).catch(err => {
         console.log(err);
       })
-      
-
     }
   },
-
   created(){
     this.initDashboard()
   }
