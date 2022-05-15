@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar fixed-top navbar-expand-lg blue-text mt-3">
+    <nav class="navbar fixed-top navbar-expand-lg blue shadow navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../assets/img/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
@@ -10,20 +10,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
                     <li class="nav-item me-2">
-                         <router-link to="/" class="nav-link active" aria-current="page">Dashboard</router-link>
+                         <router-link to="/" class="nav-link" aria-current="page"><span>Dashboard</span></router-link>
                     </li>
                     <li class="nav-item me-2">
-                        <router-link to="/courses" class="nav-link" aria-current="page">Courses</router-link>
+                        <router-link to="/courses" class="nav-link" aria-current="page"><span>Courses</span></router-link>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profile
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>Profile</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item">Action</a></li>
-                            <li><a class="dropdown-item">Another action</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><router-link to="/profile" class="dropdown-item d-flex justify-content-between">Your Profile<i class="fa-lg my-auto fa-solid fa-circle-user"></i></router-link></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><router-link to="/profile" class="dropdown-item d-flex justify-content-between">Logout<i class="my-auto fa-solid fa-arrow-right-from-bracket"></i></router-link></li>
                         </ul>
                     </li>
                 </ul>
@@ -44,7 +43,7 @@ nav a {
   text-decoration: none;
 }
 
-nav a.router-link-exact-active {
+a.router-link-active span{
   color: #ffffff;
 }
 
@@ -61,18 +60,21 @@ nav a.router-link-exact-active {
     font-weight: bold;
 }
 
+ul.dropdown-menu>li>a:hover{
+    color: #ffffff;
+    background: #0E1A40;
+}
+
+router-link.dropdown-item{
+    color: #0E1A40;
+}
+
+
 </style>
 
-<script>
+<!-- <script>
     export default{
         name: 'NavBar',
-        data(){
-            return{
-                isSigned: true
-            }
-        },
-        methods:{
-        },
         created() {
             window.addEventListener("load", function(event) {
                 var nav = document.querySelector('nav')
@@ -85,9 +87,7 @@ nav a.router-link-exact-active {
                         nav.classList.add('mt-3', 'blue-text')
                     }
                 })
-            });
-        }
+            })
+        },
     }
-
-    
-</script>
+</script> -->
