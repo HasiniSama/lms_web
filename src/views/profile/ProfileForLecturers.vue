@@ -19,7 +19,7 @@
                         <button class="flex-sm-fill nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-about" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><span>About me</span></button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><span>Grades</span></button>
+                        <button  class="flex-sm-fill nav-link  " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><span>Courses</span></button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="flex-sm-fill nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><span>Edit Profile</span></button>
@@ -60,6 +60,9 @@
                                     <label for="disabledTextInput" class="form-label">Current GPA: </label>
                                     <label for="disabledTextInput" class="form-label m-4" >3.2</label>
                             </div>
+                            <CourseItem 
+                                key=""
+                            />
                             <!-- <div id="curve_chart"><Linechart /></div> -->
                         </div>
                         <div class="tab-pane fade" id="pills-edit" role="tabpanel" aria-labelledby="pills-contact-tab">
@@ -164,16 +167,19 @@
 <script>
 import userService from '@/services/UserServices'
 import lecturerService from '@/services/LecturerService'
+import CourseItem from '@/components/CourseItem.vue'
 
 
 export default {
   name: 'Profile',
   components: {
+    CourseItem
     
   },
   data(){
       return {
-          lecturer:{}
+          lecturer:{},
+          conductingCourses:[]
     }
   },
   methods:{
@@ -190,6 +196,8 @@ export default {
         console.log(err);
       })
       }
+      //get conducting courses
+      
         
   },
   created(){
