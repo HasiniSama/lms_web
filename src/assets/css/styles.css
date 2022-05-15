@@ -8,6 +8,15 @@
     src: url('../font/sf-pro.otf');
 }
 
+@font-face {
+    font-family: 'montserrat';
+    src: url('../font/montserrat-v14-latin-regular.woff');
+}
+
+@font-face {
+    font-family: 'montserrat-bold';
+    src: url('../font/montserrat-v14-latin-700.woff');
+}
 
 /* 
 
@@ -44,7 +53,13 @@ Black - #000000
     color: #2c3e50 !important;
 }
 
+.page-content {
+    margin-top: 75px;
+}
+
+
 /* Responsive Grid Design */
+
 @media (max-width: 768px) {
     .col-xs-3 {
         flex: 0 0 auto;

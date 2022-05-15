@@ -11,7 +11,7 @@
                     <h1>Sign up</h1>
                     <p class="text-gray">Sign up for Learning management system as a student or a lecturer.</p>
                     <div class="mt-4">
-                        <form @submit="signup">
+                        <form @submit.prevent="signup">
                             <label for="email_field" class="form-label">Email address</label>
                             <div class="input-group input-group-sm">
                                 <input type="email" name="email" class="form-control" id="email_field" v-model="form.email" required>
@@ -52,25 +52,35 @@
 </template>
 
 <script>
-export default {
-    name: 'Signup',
-    data() {
-        return {
-            form: {
-                email: "",
-                password: "",
-                name: "",
-                role: "",
-                cPassword: ""
+
+    import userService from "../services/UserServices"
+
+    export default {
+        name: 'Signup',
+        data() {
+            return {
+                isError: false,
+                form: {
+                    email: "",
+                    name: "",
+                    role: "",
+                    password: "",
+                    cPassword: ""
+                }
+            }
+        },
+        methods: {
+            signup(){                
+                userService.signup(this.form).then(res => {
+                    this.isError = false
+                    this.$router.push("/signin")
+                }).catch(err => {
+                    this.isError = true
+                    // todo : if any error
+                })
             }
         }
-    },
-    methods: {
-        signup(e){
-            e.preventDefault()
-        }
     }
-}
 </script>
 
 <style scoped>

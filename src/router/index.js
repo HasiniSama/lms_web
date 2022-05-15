@@ -25,6 +25,16 @@ const routes = [{
             import ('../views/AboutView.vue')
     },
     {
+        path: '/profile',
+        name: 'profile',
+        component: () =>
+            import ('../views/ProfileView.vue')},{
+        path: '/course/:id',
+        name: 'course-details',
+        component: () =>
+            import ('../views/CourseDetailsView.vue')
+    },
+    {
         path: '/courses',
         name: 'courses',
         component: () =>

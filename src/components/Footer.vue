@@ -1,5 +1,5 @@
 <template>
-    <footer class="text-center text-white footer">
+    <footer class="text-center text-white footer ">
         <!-- Grid container -->
         <div class="container p-4 pb-0">
             <!-- Section: Social media -->
@@ -51,6 +51,7 @@
 <style>
 .footer {
     background-color:black;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
