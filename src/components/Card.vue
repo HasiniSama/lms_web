@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         formattedDescription(){
-            return this.description.substring(0, 100) + "..."
+            return this.description.substring(0, 50) + "..."
         }
     }
 }
@@ -37,6 +37,8 @@ export default {
 <style scoped>
     .card-title {
         font-size: 24px;
+        min-height: 65px;
+        color: #0e1a40;
         font-family: 'montserrat-bold';
         font-weight: 300;
     }

@@ -82,8 +82,7 @@ export default {
 
 }
 </script>
-<style>
-
+<style scoped>
 h2{
   font-size:4vh;
   font-weight:bold;

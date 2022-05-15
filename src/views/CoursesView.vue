@@ -3,16 +3,15 @@
     <section class="courses">
         <div class="container-fluid">
             <h1>All Courses</h1>
-            <div class="row">
-                <div class="col-sm-12 col-md-3 mx-auto align-items-center" v-for="course in allCourses" :key="course.course_id">
-                    <CardVue
-                        :id="course.course_id"
-                        :code="course.course_code" 
-                        :title="course.name" 
-                        :lecturer="course.lecturer.name"
-                        :description="course.description"
-                    />
-                </div>
+            <div class="row mx-auto align-items-center">
+                <CardVue
+                    v-for="course in allCourses" :key="course.course_id"
+                    :id="course.course_id"
+                    :code="course.course_code" 
+                    :title="course.name" 
+                    :lecturer="course.lecturer.name"
+                    :description="course.description"
+                />
             </div>
         </div>
     </section>
