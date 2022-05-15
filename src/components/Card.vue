@@ -1,19 +1,18 @@
 <template>
-    <section class="courses">
-        <div class="container-fluid">
-            <div class="row">
+    
+            <div class="col-md-3">
                 <div class="courses-card justify-content-center bg-light-brown">
                     <img src="../assets/img/sample-img.png" class="card-img" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{title}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{code}}</h6>
+                        <p class="card-text ">{{formattedDescription}}</p>
                         <h6 class="mt-1 card-subtitle mb-2">Conducted by :  {{lecturer}}</h6>
                         <router-link :to="'/course/'+id" class="mt-3 btn view-btn nav-link active" aria-current="page">View Course</router-link>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        
 </template>
 
 <script>
@@ -25,9 +24,15 @@ export default {
         title: String,
         lecturer: String,
         description: String
+    },
+    computed: {
+        formattedDescription(){
+            return this.description.substring(0, 100) + "..."
+        }
     }
 }
 </script>
+
 
 <style scoped>
     .card-title {
