@@ -10,7 +10,7 @@
       <div class="row justify-content-center pt-5">
         <div class="col-md-6">
           <div class="announcements pt-4 bg-light ">
-            <h3 class="text-center">Announcements</h3>
+            <h3 class="text-center pb-2">Announcements</h3>
             <div class="announcement">
                <Announcements 
               v-for="announcement in announcements"
@@ -82,6 +82,8 @@ export default {
         res.data.forEach(course => {
           this.pushAnnouncements(course.course_id)
         });
+
+       
       }).catch(err=>{
         console.log(err)
       })
@@ -106,17 +108,6 @@ export default {
       })
     },
 
-
-    async hasAnnouncement(course_id){
-      return CourseService.getAnnouncements(course_id,userService.getToken()).then(res => {
-        console.log(res.length != 0)
-        return res.length != 0
-      }).catch(err => {
-        console.log(err);
-      })
-    }
-
-    
 
   },
 
@@ -151,6 +142,7 @@ h5{
 }
 .announcements h3{
   color: black;
+  
 }
 .announcements .announcement{
   height: 80%;
