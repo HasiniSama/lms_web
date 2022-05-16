@@ -2,7 +2,7 @@
   <div class="container-fluid p-5">
     <div class="containr-fluid">
       <div class="row pt-5">
-        <div class="col text-center">
+        <div class="col text-center" >
           <h2>Hello {{student.name}}</h2>
           <h5>Welcome back !</h5>
         </div>

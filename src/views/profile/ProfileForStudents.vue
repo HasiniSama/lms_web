@@ -7,7 +7,7 @@
                     <img src="@/assets/profile/undergraduate.png" alt="" class="mx-auto">
                 </div>
                 <div class="sub-head text-center pt-3">
-                    <h5  id="name">{{student.name}}</h5>
+                    <h5  id="name" >{{student.name}}</h5>
                     <h6  id="studentId">Student Id: {{student.id}}</h6>
                 </div>
             </div>
@@ -171,6 +171,7 @@
 import userService from '@/services/UserServices'
 import studentService from '@/services/StudentService'
 import CourseItem from '@/components/CourseItem.vue'
+
 
 
 
