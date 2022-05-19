@@ -12,6 +12,24 @@ class LecturerService {
             throw err
         })
     }
+    async getConductingCourses(lecturerId, token) {
+        return axios.get(`lecturer/${lecturerId}/courses`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+    async getLecturerDetails(lecturerId, token) {
+        return axios.get(`lecturer/${lecturerId}`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
     async hasAccess(lecturerId, courseId, token) {
         return axios.get(`course/all`, {
             headers: { "Authorization": `Bearer ${token}` },
