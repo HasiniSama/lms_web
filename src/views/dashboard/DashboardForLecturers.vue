@@ -29,6 +29,7 @@
         <h3 class="p-3" >Conducting courses</h3>
           <CourseCard 
             v-for="conductingCourse in conductingCourses"
+            :id="conductingCourse.course_id"
             :key="conductingCourse.course_id"
             :code="conductingCourse.course_code"
             :title="conductingCourse.name"
