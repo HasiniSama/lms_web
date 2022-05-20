@@ -40,7 +40,7 @@ class UserService {
     }
 
     async enroll(studentId, courseId, token) {
-        return axios.put(`student/${studentId}/enroll/${courseId}`, {}, {
+        return axios.post(`student/${studentId}/enroll/${courseId}`, {}, {
             headers: { "Authorization": `Bearer ${token}` },
         }).then((res) => {
             return res

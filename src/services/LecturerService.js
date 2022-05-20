@@ -63,7 +63,7 @@ class LecturerService {
         })
     }
     async assignMarks(courseId, studentId, marks, token) {
-        return axios.put(`lecturer/${courseId}/student/${studentId}/mark/${marks}`, { title: "put marks" }, {
+        return axios.post(`lecturer/${courseId}/student/${studentId}/mark/${marks}`, { title: "put marks" }, {
             headers: { "Authorization": `Bearer ${token}` }
         }).then((res) => {
             return res
