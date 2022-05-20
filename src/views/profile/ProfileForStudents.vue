@@ -109,7 +109,8 @@
                 <CourseItem
                   v-for="enrolledCourse in enrolledCourses"
                   :key="enrolledCourse.course_id"
-                  :id="enrolledCourse.course_code"
+									:id="enrolledCourse.course_id"
+                  :courseCode="enrolledCourse.course_code"
                   :name="enrolledCourse.name"
 									class="mb-1"
                 />
