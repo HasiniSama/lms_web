@@ -17,7 +17,7 @@
             <i class="fa-solid fa-circle-plus"></i>Add new
           </button>
         </div>
-        <div>
+        <div class="row">
           <CourseCard
             v-for="conductingCourse in conductingCourses"
             :id="conductingCourse.course_id"
@@ -86,7 +86,7 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 h2{
   font-size:4vh;
   font-weight:bold;
