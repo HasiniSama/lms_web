@@ -112,6 +112,7 @@
 									:id="enrolledCourse.course_id"
                   :courseCode="enrolledCourse.course_code"
                   :name="enrolledCourse.name"
+                  :showMarks="true"
 									class="mb-1"
                 />
                 <!-- <div id="curve_chart"><Linechart /></div> -->
@@ -158,6 +159,7 @@
                         id="degree"
                         class="form-control"
                         v-model="student.email"
+                        readonly
                       />
                     </div>
 

@@ -21,14 +21,16 @@
     props:{
       id: Number,
       courseCode: Number,
-      name: String
+      name: String,
+      showMarks: Boolean
     },
     data(){
       return{
-        numberTexts: "..."
+        numberTexts: ""
       }
     },
     created(){
+      if(this.showMarks)
       userService.getMarks(
         userService.getUserDetails().id,
         this.id

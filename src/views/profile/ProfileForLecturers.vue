@@ -56,17 +56,14 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <div class="mb-3">
-                                    <label for="disabledTextInput" class="form-label">Current GPA: </label>
-                                    <label for="disabledTextInput" class="form-label m-4" >3.2</label>
-                            </div>
                             <CourseItem 
                                 v-for="conductingCourse in conductingCourses"
                                 :key="conductingCourse.course_id"
-                                :id="conductingCourse.course_code"
+                                :id="conductingCourse.course_id"
+                                :courseCode="conductingCourse.course_code"
                                 :name="conductingCourse.name"
-                                :numberTexts="24"
-
+                                :showMarks="false"
+                                class="mb-1"
                             />
                             <!-- <div id="curve_chart"><Linechart /></div> -->
                         </div>
@@ -86,7 +83,7 @@
 
                                     <div class="mb-3">
                                     <label for="disabledTextInput" class="form-label">Email :</label>
-                                    <input type="text" id="degree" class="form-control" v-model="lecturer.email">
+                                    <input type="text" id="degree" class="form-control" v-model="lecturer.email" readonly>
                                     </div>
                                 
                                     
@@ -195,19 +192,17 @@ export default {
         userService.getUserDetails().id,
         userService.getToken()
       ).then(res => {
-        console.log(res)
         this.lecturer = res
       }).catch(err => {
         console.log(err);
       })
 
         //get conducting courses
-        lecturerService.getConductingCourses(
+        lecturerService.getOtherConductingCources(
         userService.getUserDetails().id,
         userService.getToken()
         ).then(res=>{
-            console.log(res)
-            this.conductingCourses=res.data
+            this.conductingCourses=res
         }).catch(err => {
             console.log(err);
         })
