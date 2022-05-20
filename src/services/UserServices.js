@@ -79,6 +79,16 @@ class UserService {
         })
     }
 
+    async getMarks(studentId, courseId) {
+        return axios.get(`student/student/${studentId}/course/${courseId}`, {
+            headers: { "Authorization": `Bearer ${this.getToken()}` },
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
     isSigned() {
         return this.localStorageManager.isTokenAvailable
     }

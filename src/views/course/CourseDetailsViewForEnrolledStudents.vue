@@ -84,15 +84,15 @@ export default {
     },
     data(){
         return{
-            code: "SENG 12234",
-            name: "Testing Mobile Applications",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque neque fugit deleniti rem dignissimos architecto rerum velit nam accusamus error beatae iure, nemo sapiente exercitationem qui tenetur facilis, aspernatur quod.",
+            code: "Loading...",
+            name: "Loading...",
+            description: "Loading...",
             lecturer: {
-                name: "John Doe"
+                name: "Loading..."
             },
             enrolledCourses: [],
             announcements: [],
-            marks: "55"
+            marks: "Loading..."
         }
     },
     methods: {
@@ -124,6 +124,17 @@ export default {
                 userService.getUserDetails().id, userService.getToken()
             ).then(data => {
                 this.enrolledCourses = data.data.filter(item => {return item.course_id != courseId})
+            }).catch(err => {
+                console.log(err)
+            })
+
+            //display marks
+            userService.getMarks(userService.getUserDetails().id, this.id).then(res => {
+                if(res.data == ""){
+                    this.marks = "Not asssigned yet!"
+                }else{
+                    this.marks = res.data
+                }
             }).catch(err => {
                 console.log(err)
             })
