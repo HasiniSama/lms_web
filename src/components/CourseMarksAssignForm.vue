@@ -30,7 +30,8 @@ export default {
             return this.marks >= 0 && this.marks <= 100
         },
         isMarksAssigned(){
-            return isSigned?'is-valid':''
+            console.log(this.isSigned ? 'is-valid' : '');
+            return this.isSigned ? 'is-valid' : ''
         }
     },
     methods:{
