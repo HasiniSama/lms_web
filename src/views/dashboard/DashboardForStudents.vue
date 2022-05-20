@@ -69,7 +69,6 @@ export default {
   },
 
   methods:{
-
     initDashboard(){
       //getting enrolled courses
       userService.getEnrolledCourses(
@@ -81,12 +80,11 @@ export default {
         res.data.forEach(course => {
           this.pushAnnouncements(course.course_id)
         });
-
-       
       }).catch(err=>{
         console.log(err)
       })
-    //getting student details
+
+      //getting student details
       userService.getStudentDetails(
         userService.getUserDetails().id,
         userService.getToken()
@@ -106,8 +104,6 @@ export default {
         console.log(err);
       })
     },
-
-
   },
 
   created(){
