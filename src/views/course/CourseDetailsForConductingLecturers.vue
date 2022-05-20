@@ -18,7 +18,10 @@
                         <EmptyState class="mt-3" title="No avtivity found!" />
                     </div>
                     <div class="tab-pane fade show" id="nav-marks" role="tabpanel" aria-labelledby="nav-marks-tab">
-                        <table class="table table-hover mt-3">
+                        <div v-if="isEnrolledStudentsEmpty">
+                            <EmptyState class="mt-3" title="No students have enrolled to this course!" />
+                        </div>
+                        <table class="table table-hover mt-3" v-else>
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col">#</th>
@@ -115,10 +118,6 @@ export default {
     },
     data(){
         return{
-            auth:{
-                role: "",
-                authorityCourses: ""
-            },
             code: "SENG 12234",
             name: "Testing Mobile Applications",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque neque fugit deleniti rem dignissimos architecto rerum velit nam accusamus error beatae iure, nemo sapiente exercitationem qui tenetur facilis, aspernatur quod.",
@@ -135,9 +134,6 @@ export default {
             this.announcements.push({id: this.announcements.length+1, title: _title, description: _description})
         },
         initComponent(courseId){
-            this.auth.role = userService.getUserDetails().role
-            this.auth.authorityCourses = userService.getUserDetails().courses
-
             //course details
             courseService.getCourseDetails(
                 courseId, userService.getToken()
@@ -167,6 +163,13 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
+
+            // enrolled students
+            lecturerService.getEnrolledStudents(courseId, userService.getToken()).then(res => {
+                this.enrolledStudents = res
+            }).catch(err => {
+                console.log(err)
+            })
         }
     },
     computed: {
@@ -175,6 +178,9 @@ export default {
         },
         isConductingCoursesEmpty(){
             return this.conductingCourses.length == 0
+        },
+        isEnrolledStudentsEmpty(){
+            return this.enrolledStudents.length == 0
         }
     },
     created(){
@@ -183,12 +189,6 @@ export default {
             return
         }
         this.initComponent(this.id)
-
-        lecturerService.getEnrolledStudents(this.id, userService.getToken()).then(res => {
-            this.enrolledStudents = res
-        }).catch(err => {
-            console.log(err)
-        })
     }
 }
 </script>
