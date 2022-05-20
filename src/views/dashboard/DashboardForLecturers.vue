@@ -92,7 +92,7 @@ h2{
   font-weight:bold;
 }
 h3{
-  font-size:3vh;
+  font-size: 2rem;
   font-weight:bold;
   color: #946B2D;
 }
