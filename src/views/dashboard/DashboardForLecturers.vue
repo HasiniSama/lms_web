@@ -7,27 +7,18 @@
           <h5>Welcome back !</h5>
         </div>
       </div>
-      <div class="row justify-content-center pt-5">
-        <div class="col-md-6">
-          <div class="announcements pt-4 bg-light ">
-            <h3 class="text-center">Announcements</h3>
-            <div class="announcement">
-               <Announcements 
-                v-for="announcement in announcements"
-                :key="announcement.id"
-                :subject="announcement.course.course_code"
-                :announcement="announcement.description"
-            />
-            </div>
-           
-          </div>
-        </div>
-      </div>
     </div>
     <div class="container-fluid ">
       <div class="row pt-5">
         <h3 class="p-3" >Conducting courses</h3>
-          <CourseCard 
+        <div class="new-course d-flex mb-1">
+          <NewCourseModal id="new-course-modal" :lecturerId="lecturer.id" />
+          <button class="btn mx-auto ms-md-auto me-md-0" data-bs-toggle="modal" data-bs-target="#new-course-modal">
+            <i class="fa-solid fa-circle-plus"></i>Add new
+          </button>
+        </div>
+        <div>
+          <CourseCard
             v-for="conductingCourse in conductingCourses"
             :id="conductingCourse.course_id"
             :key="conductingCourse.course_id"
@@ -36,6 +27,7 @@
             :lecturer="conductingCourse.lecturer.name"
             :description="conductingCourse.description"
           />
+        </div>
       </div>
     </div>
   </div>
@@ -49,44 +41,30 @@ import userService from '@/services/UserServices.js'
 import lecturerService from '@/services/LecturerService'
 import CourseService from '@/services/CourseService'
 import Announcements from '@/components/Announcements.vue'
+import NewCourseModal from '@/components/NewCourseModal.vue'
 
 
 export default {
   name: 'DashboardForLectures',
   components: {
     CourseCard,
-    Announcements
+    Announcements,
+    NewCourseModal
   },
 
   data(){
     return{
       conductingCourses: [],
-      lecturer: {},
-      announcements:[]
+      lecturer: {}
     }
   },
 
   methods:{
-
     initDashboard(){
-      // lecturerService.getConductingCources(
-      //   userService.getUserDetails().id,
-      //   userService.getToken()
-      // ).then(res => {
-      //  console.log(res)
-      //   this.conductingCourses=res.data
-      // }).catch(err=>{
-      //   console.log(err)
-      // })
-
       lecturerService.getOtherConductingCources(
         userService.getUserDetails().id,userService.getToken()
       ).then(res=>{
         this.conductingCourses = res
-
-        res.forEach(course => {
-           this.pushAnnouncements(course.course_id)
-        });
       }).catch(err=>{
         console.log(err)
       })
@@ -100,18 +78,7 @@ export default {
       }).catch(err => {
         console.log(err);
       })
-    },
-
-    pushAnnouncements(courseId){
-      CourseService.getAnnouncements(courseId, userService.getToken()).then(res => {
-        res.forEach(ann => {
-          this.announcements.push(ann)
-        })
-      }).catch(err => {
-        console.log(err);
-      })
-    },
-
+    }
   },
   created(){
     this.initDashboard()
@@ -152,6 +119,16 @@ h5{
   border: 2px solid black;
   border-color: black;
 }
-
-
+.new-course .btn{
+  border: solid 2px #946B2D;
+  color: #946B2D;
+  transition: 0.1s;
+}
+.new-course .btn:hover{
+  background-color: #946B2D;
+  color: white;
+}
+i{
+  margin-right: 8px;
+}
 </style>
