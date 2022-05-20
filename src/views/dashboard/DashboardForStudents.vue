@@ -76,7 +76,6 @@ export default {
         userService.getUserDetails().id,
         userService.getToken()
       ).then(res => {
-        console.log(this.isStudent)
         this.enrolledCourses=res.data
 
         res.data.forEach(course => {

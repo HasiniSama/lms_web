@@ -82,7 +82,6 @@ export default {
       lecturerService.getOtherConductingCources(
         userService.getUserDetails().id,userService.getToken()
       ).then(res=>{
-        console.log(res)
         this.conductingCourses = res
 
         res.forEach(course => {
@@ -97,7 +96,6 @@ export default {
         userService.getUserDetails().id,
         userService.getToken()
       ).then(res => {
-        console.log(res)
         this.lecturer = res
       }).catch(err => {
         console.log(err);
