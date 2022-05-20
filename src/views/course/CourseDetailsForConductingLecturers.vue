@@ -33,7 +33,7 @@
                                     <th scope="row">{{++i}}</th>
                                     <td>{{stu.id}}</td>
                                     <td>{{stu.name}}</td>
-                                    <td>{{stu.name}}</td>
+                                    <td>{{stu.email}}</td>
                                     <td>
                                         <CourseMarksAssignForm :studentId="stu.id" :courseId="id" />
                                     </td>
