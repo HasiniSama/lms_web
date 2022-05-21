@@ -17,6 +17,7 @@
             <i class="fa-solid fa-circle-plus"></i>Add new
           </button>
         </div>
+        <p class="text-gray text-center py-3" v-if="conductingCourses.length==0">No conducting courses!<br>Create a new course by clicking the add new button.</p>
         <div class="row">
           <CourseCard
             v-for="conductingCourse in conductingCourses"
