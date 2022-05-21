@@ -2,7 +2,7 @@
     <div>
         <form method="post" @submit.prevent="assignMarks">
             <div class="input-group input-group-sm mb-3">
-                <input type="number" min="0" max="100" class="form-control" :class="isMarksAssigned" placeholder="Marks" v-model="marks">
+                <input type="number" min="0" max="100" class="form-control" :id="inputId" placeholder="Marks" v-model="marks">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Assign</button>
             </div>
         </form>
@@ -21,17 +21,15 @@ export default {
     },
     data(){
         return{
-            marks: "0",
-            isAssigned: false
+            marks: "0"
         }
     },
     computed:{
         isMarksValid(){
             return this.marks >= 0 && this.marks <= 100
         },
-        isMarksAssigned(){
-            console.log(this.isSigned ? 'is-valid' : '');
-            return this.isSigned ? 'is-valid' : ''
+        inputId(){
+            return "marks-input-"+this.studentId+'-'+this.courseId
         }
     },
     methods:{
@@ -47,14 +45,18 @@ export default {
                 this.marks, 
                 userServices.getToken()
             ).then(res => {
-                if(res.status == 200){
-                    this.isAssigned = true
-                }
-                console.log(res)
+                this.displayTick()
             }).catch(err => {
+                this.removeTick()
                 console.log(err)
             })
-        }
+        },
+        displayTick(){
+            document.querySelector('#'+this.inputId).classList.add('is-valid')
+        },
+        removeTick(){
+            document.querySelector('#'+this.inputId).classList.remove('is-valid')
+        },
     }
 }
 </script>
