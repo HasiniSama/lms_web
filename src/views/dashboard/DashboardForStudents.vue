@@ -11,6 +11,7 @@
         <div class="col-md-6">
           <div class="announcements pt-4 bg-light ">
             <h3 class="text-center pb-2">Announcements</h3>
+            <p class="text-gray text-center pb-3" v-if="announcements.length==0">No announcements</p>
             <div class="announcement">
                <Announcements 
               v-for="announcement in announcements"
@@ -28,6 +29,7 @@
       <div class="row">
         <h3 class="" >Enrolled courses</h3>
         <div class="col-3"><hr></div>
+        <p class="text-gray text-center pb-3" v-if="enrolledCourses.length==0">No enrolled courses</p>
         <div class="row pt-4">
           <CourseCard 
             v-for="enrolledCourse in enrolledCourses"
