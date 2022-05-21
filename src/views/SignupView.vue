@@ -29,12 +29,14 @@
                                 <label for="role_field_2">&nbsp;Lecturer</label>
                             </div>
                             <label for="password_field" class="form-label">Password</label>
-                            <div class="input-group input-group-sm mb-3">
+                            <div class="input-group input-group-sm mb-3 has-validation">
                                 <input type="password" name="password" class="form-control" id="password_field" v-model="form.password">
+                                <div class="invalid-feedback">Password must have atleast 8 charactors!</div>
                             </div>
                             <label for="conform_password_field" class="form-label">Confirm password</label>
-                            <div class="input-group input-group-sm mb-3">
+                            <div class="input-group input-group-sm mb-3 has-validation">
                                 <input type="password" name="password" class="form-control" id="conform_password_field" v-model="form.cPassword">
+                                <div class="invalid-feedback">Password did not matched!</div>
                             </div>
 
                             <button type="submit" class="btn btn-brown w-100">
@@ -52,7 +54,7 @@
 </template>
 
 <script>
-
+    import Swal from 'sweetalert2'
     import userService from "../services/UserServices"
 
     export default {
@@ -61,22 +63,41 @@
             return {
                 isError: false,
                 form: {
-                    email: "",
-                    name: "",
-                    role: "",
-                    password: "",
-                    cPassword: ""
+                    email: "test@gmail.com",
+                    name: "test",
+                    role: "STUDENT",
+                    password: "1231233214",
+                    cPassword: "1231233214"
                 }
             }
         },
         methods: {
-            signup(){                
+            signup(){
+                if(this.form.password.length<9){
+                    document.querySelector('#password_field').classList.add('is-invalid');
+                    return
+                }else if(this.form.cPassword != this.form.password){
+                    document.querySelector('#conform_password_field').classList.add('is-invalid');
+                    document.querySelector('#password_field').classList.remove('is-invalid');
+                    return
+                }else{
+                    document.querySelector('#password_field').classList.remove('is-invalid');
+                    document.querySelector('#conform_password_field').classList.remove('is-invalid');
+                }
+
+                //call the api from the service
                 userService.signup(this.form).then(res => {
                     this.isError = false
                     this.$router.push("/signin")
                 }).catch(err => {
                     this.isError = true
-                    // todo : if any error
+                    if(err.response.status == 500){
+                        Swal.fire(
+                            'Oops!',
+                            'This email is already taken!',
+                            'error'
+                        )
+                    }
                 })
             }
         }
