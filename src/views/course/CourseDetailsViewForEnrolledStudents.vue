@@ -129,7 +129,7 @@ export default {
             })
 
             //display marks
-            userService.getMarks(userService.getUserDetails().id, this.id).then(res => {
+            userService.getMarks(userService.getUserDetails().id, courseId).then(res => {
                 if(res.data == ""){
                     this.marks = "Not asssigned yet!"
                 }else{
