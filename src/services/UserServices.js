@@ -49,6 +49,16 @@ class UserService {
         })
     }
 
+    async unenroll(studentId, courseId, token) {
+        return axios.post(`student/${studentId}/unenroll/${courseId}`, {}, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
     async getEnrolledCourses(studentId, token) {
         return axios.get(`student/${studentId}/courses`, {
             headers: { "Authorization": `Bearer ${token}` },

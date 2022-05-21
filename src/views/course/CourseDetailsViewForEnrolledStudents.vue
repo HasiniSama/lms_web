@@ -37,6 +37,12 @@
                             <h5 class="text-gray">Lecturer: {{lecturer.name}}</h5>
                             <p class="text-gray mt-3">{{description}}</p>
                         </section>
+                        <section class="mt-5">
+                            <h2 class="text-danger">Unenrollment</h2>
+                            <hr>
+                            <p class="text-gray">If you are not interested in this course, you can just un-enroll to the course.</p>
+                            <button class="btn btn-outline-danger" style="border-width: 2px;" @click="confirmUnenroll">Unenroll</button>
+                        </section>
                     </div>
                 </div>
             </div>
@@ -71,6 +77,8 @@ import Accordion from '@/components/Accordion.vue'
 
 import userService from '@/services/UserServices.js'
 import courseService from '@/services/CourseService.js'
+
+import Swal from 'sweetalert2'
 
 export default {
     name: 'CourseDetailsForEnrolledstudents',
@@ -137,6 +145,44 @@ export default {
                 }
             }).catch(err => {
                 console.log(err)
+            })
+        },
+
+        confirmUnenroll(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-danger me-2',
+                    cancelButton: 'btn btn-outline-success'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, unenroll!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    userService.unenroll(
+                        userService.getUserDetails().id,
+                        this.id,
+                        userService.getToken()
+                    ).then(res => {
+                        swalWithBootstrapButtons.fire(
+                            'Unenrolled!',
+                            'You have successfully unenrolled from this course.',
+                            'success'
+                        ).then(() => {
+                            this.$router.go(0)
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
             })
         }
     },
