@@ -133,7 +133,7 @@ h5{
 .announcements{
   
   padding: 3vh;
-  height: 70%;
+  height: 10rem;
   border-radius: 3vh;
   position:static;
 }
@@ -143,7 +143,8 @@ h5{
 }
 .announcements .announcement{
   height: 80%;
-  overflow-y:scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .courses hr{
   border: 2px solid black;
