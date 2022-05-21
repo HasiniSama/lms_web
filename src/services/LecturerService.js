@@ -71,6 +71,15 @@ class LecturerService {
             throw err
         })
     }
+    async getAllMarks(courseId, token) {
+        return axios.get(`lecturer/${courseId}/students/marks`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
 }
 
 export default new LecturerService()
