@@ -38,7 +38,7 @@
                                     <td>{{stu.name}}</td>
                                     <td>{{stu.email}}</td>
                                     <td>
-                                        <CourseMarksAssignForm :studentId="stu.id" :courseId="id" />
+                                        <CourseMarksAssignForm :studentId="stu.id" :courseId="id" :key="'id-'+stu.id+'-'+id" />
                                     </td>
                                 </tr>
                             </tbody>
