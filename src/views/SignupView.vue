@@ -63,11 +63,11 @@
             return {
                 isError: false,
                 form: {
-                    email: "test@gmail.com",
-                    name: "test",
-                    role: "STUDENT",
-                    password: "1231233214",
-                    cPassword: "1231233214"
+                    email: "",
+                    name: "",
+                    role: "",
+                    password: "",
+                    cPassword: ""
                 }
             }
         },
