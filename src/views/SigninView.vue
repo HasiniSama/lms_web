@@ -79,8 +79,9 @@
                     this.isError = false
                     this.$router.push("/")
                 }).catch(err => {
-                    this.isError = true
-                    // todo : if any error
+                    if(err.response.status == 403){
+                        this.isError = true
+                    }
                 })
             },
             initForm(){
