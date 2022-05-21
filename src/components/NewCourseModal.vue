@@ -58,7 +58,6 @@ export default {
                 this.course, 
                 userService.getToken()
             ).then(res => {
-                console.log(res)
                 document.getElementById('newCoursemodalCloseBtn').click()
                 this.$router.go(0)
             }).catch(err => {
