@@ -38,7 +38,7 @@
                                     <td>{{stu.name}}</td>
                                     <td>{{stu.email}}</td>
                                     <td>
-                                        <CourseMarksAssignForm :studentId="stu.id" :courseId="id" :key="'id-'+stu.id+'-'+id" />
+                                        <CourseMarksAssignForm :studentId="stu.id" :courseId="id" :currentMarks="stu.marks" :key="'id-'+stu.id+'-'+id" />
                                     </td>
                                 </tr>
                             </tbody>
@@ -165,7 +165,14 @@ export default {
             })
 
             // enrolled students
-            lecturerService.getEnrolledStudents(courseId, userService.getToken()).then(res => {
+            // lecturerService.getEnrolledStudents(courseId, userService.getToken()).then(res => {
+            //     this.enrolledStudents = res
+            // }).catch(err => {
+            //     console.log(err)
+            // })
+
+            //all marks
+            lecturerService.getAllMarks(courseId, userService.getToken()).then(res => {
                 this.enrolledStudents = res
             }).catch(err => {
                 console.log(err)
