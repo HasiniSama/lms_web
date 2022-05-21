@@ -62,7 +62,7 @@ export default {
 
 <style scoped>
     .courses {
-        background-color: #f9f9f9;
+        /* background-color: #f9f9f9; */
         padding: 30px 0;
     }
     .courses h1 {
