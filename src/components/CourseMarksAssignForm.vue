@@ -17,7 +17,8 @@ export default {
     name: 'CourseMarksAssignForm',
     props:{
         studentId: Number,
-        courseId: Number
+        courseId: Number,
+        currentMarks: Number
     },
     data(){
         return{
@@ -57,6 +58,9 @@ export default {
         removeTick(){
             document.querySelector('#'+this.inputId).classList.remove('is-valid')
         },
+    },
+    created(){
+        this.marks = this.currentMarks
     }
 }
 </script>
