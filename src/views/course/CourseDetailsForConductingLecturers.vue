@@ -32,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(stu, i) in enrolledStudents" :key="stu.id">
+                                <tr v-for="(stu, i) in enrolledStudents" :key="'id-'+stu.id+'-'+id">
                                     <th scope="row">{{++i}}</th>
                                     <td>{{stu.id}}</td>
                                     <td>{{stu.name}}</td>
@@ -163,13 +163,6 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
-
-            // enrolled students
-            // lecturerService.getEnrolledStudents(courseId, userService.getToken()).then(res => {
-            //     this.enrolledStudents = res
-            // }).catch(err => {
-            //     console.log(err)
-            // })
 
             //all marks
             lecturerService.getAllMarks(courseId, userService.getToken()).then(res => {
