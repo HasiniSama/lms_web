@@ -10,12 +10,14 @@
     </div>
     <div class="container-fluid ">
       <div class="row pt-5">
-        <h3 class="p-3 pb-0" >Conducting courses</h3>
-        <div class="new-course d-flex mb-3">
-          <NewCourseModal id="new-course-modal" :lecturerId="lecturer.id" />
-          <button class="btn mx-auto ms-md-auto me-md-0" data-bs-toggle="modal" data-bs-target="#new-course-modal">
-            <i class="fa-solid fa-circle-plus"></i>Add new
-          </button>
+        <div class="col-12 d-flex justify-content-between">
+          <h3 class="p-0" >Conducting courses</h3>
+          <div class="new-course d-flex mb-3">
+            <NewCourseModal id="new-course-modal" :lecturerId="lecturer.id" />
+            <button class="btn mx-auto ms-md-auto me-md-0" data-bs-toggle="modal" data-bs-target="#new-course-modal">
+              <i class="fa-solid fa-circle-plus"></i>Add new
+            </button>
+          </div>
         </div>
         <p class="text-gray text-center py-3" v-if="conductingCourses.length==0">No conducting courses!<br>Create a new course by clicking the add new button.</p>
         <div class="row">
