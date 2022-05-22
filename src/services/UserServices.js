@@ -40,7 +40,17 @@ class UserService {
     }
 
     async enroll(studentId, courseId, token) {
-        return axios.put(`student/${studentId}/enroll/${courseId}`, {}, {
+        return axios.post(`student/${studentId}/enroll/${courseId}`, {}, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+
+    async unenroll(studentId, courseId, token) {
+        return axios.post(`student/${studentId}/unenroll/${courseId}`, {}, {
             headers: { "Authorization": `Bearer ${token}` },
         }).then((res) => {
             return res
@@ -74,6 +84,16 @@ class UserService {
             headers: { "Authorization": `Bearer ${this.getToken()}` },
         }).then((res) => {
             return res.data.findIndex(item => { return item.course_id == courseId }) != -1
+        }).catch((err) => {
+            throw err
+        })
+    }
+
+    async getMarks(studentId, courseId) {
+        return axios.get(`student/${studentId}/course/${courseId}`, {
+            headers: { "Authorization": `Bearer ${this.getToken()}` },
+        }).then((res) => {
+            return res
         }).catch((err) => {
             throw err
         })

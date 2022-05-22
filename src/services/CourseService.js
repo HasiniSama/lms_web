@@ -1,6 +1,17 @@
 import axios from "axios"
 
 class CourseService {
+    async createNewCourse(course, token) {
+        return axios.post(`course/add`,
+            course, {
+                headers: { "Authorization": `Bearer ${token}` }
+            }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
+
     async getCourseDetails(courseId, token) {
         return axios.get(`course/${courseId}`, {
             headers: { "Authorization": `Bearer ${token}` }
@@ -30,9 +41,6 @@ class CourseService {
             throw err
         })
     }
-
-    
-    
 }
 
 export default new CourseService()

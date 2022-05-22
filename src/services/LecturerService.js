@@ -53,6 +53,33 @@ class LecturerService {
             throw err
         })
     }
+    async getEnrolledStudents(courseId, token) {
+        return axios.get(`lecturer/${courseId}/students`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
+    async assignMarks(courseId, studentId, marks, token) {
+        return axios.post(`lecturer/${courseId}/student/${studentId}/mark/${marks}`, { title: "put marks" }, {
+            headers: { "Authorization": `Bearer ${token}` }
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            throw err
+        })
+    }
+    async getAllMarks(courseId, token) {
+        return axios.get(`lecturer/${courseId}/students/marks`, {
+            headers: { "Authorization": `Bearer ${token}` },
+        }).then((res) => {
+            return res.data
+        }).catch((err) => {
+            throw err
+        })
+    }
 }
 
 export default new LecturerService()

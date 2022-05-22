@@ -66,7 +66,10 @@ export default {
             userService.enroll(
                 userService.getUserDetails().id, this.id, userService.getToken()
             ).then(data => {
-                console.log(data)
+                if(data.status == 200){
+                    // refresh the page
+                    this.$router.go(0)
+                }
             }).catch(err => {
                 console.log(err)
             })

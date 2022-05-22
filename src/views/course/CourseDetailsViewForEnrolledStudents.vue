@@ -7,9 +7,9 @@
             <div class="col-md-9 mt-3">
                 <nav class="ps-auto ps-md-0">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Activity</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Announcements</button>
-                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Details</button>
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-chart-line"></i>Activity</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-scroll"></i>Announcements</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fa-solid fa-circle-info"></i>Details</button>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -37,21 +37,33 @@
                             <h5 class="text-gray">Lecturer: {{lecturer.name}}</h5>
                             <p class="text-gray mt-3">{{description}}</p>
                         </section>
+                        <section class="mt-5">
+                            <h2 class="text-danger">Unenrollment</h2>
+                            <hr>
+                            <p class="text-gray">If you are not interested in this course, you can just un-enroll to the course.</p>
+                            <button class="btn btn-outline-danger" style="border-width: 2px;" @click="confirmUnenroll">Unenroll</button>
+                        </section>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <h4 class="text-center mt-3">Other courses</h4>
-                <p class="text-gray text-center mt-3" v-if="isEnrolledCoursesEmpty">No other courses!</p>
-                <div class="enrolled-courses mt-4" v-else>
-                    <CourseListItem
-                        v-for="course in enrolledCourses"
-                        :key="course.course_id"
-                        :id="course.course_id"
-                        :name="course.name"
-                        :code="course.course_code"
-                        @click="initComponent(course.course_id)"
-                    />
+                <div class="marks mt-3">
+                    <h4 class="text-center mt-3">Marks</h4>
+                    <p class="text-gray text-center">{{marks}}</p>
+                </div>
+                <div>
+                    <h4 class="text-center mt-3">Other courses</h4>
+                    <p class="text-gray text-center mt-3" v-if="isEnrolledCoursesEmpty">No other courses!</p>
+                    <div class="enrolled-courses mt-4" v-else>
+                        <CourseListItem
+                            v-for="course in enrolledCourses"
+                            :key="course.course_id"
+                            :id="course.course_id"
+                            :name="course.name"
+                            :code="course.course_code"
+                            @click="initComponent(course.course_id)"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,6 +78,8 @@ import Accordion from '@/components/Accordion.vue'
 import userService from '@/services/UserServices.js'
 import courseService from '@/services/CourseService.js'
 
+import Swal from 'sweetalert2'
+
 export default {
     name: 'CourseDetailsForEnrolledstudents',
     components: {
@@ -78,14 +92,15 @@ export default {
     },
     data(){
         return{
-            code: "SENG 12234",
-            name: "Testing Mobile Applications",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque neque fugit deleniti rem dignissimos architecto rerum velit nam accusamus error beatae iure, nemo sapiente exercitationem qui tenetur facilis, aspernatur quod.",
+            code: "Loading...",
+            name: "Loading...",
+            description: "Loading...",
             lecturer: {
-                name: "John Doe"
+                name: "Loading..."
             },
             enrolledCourses: [],
-            announcements: []
+            announcements: [],
+            marks: "Loading..."
         }
     },
     methods: {
@@ -120,6 +135,55 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
+
+            //display marks
+            userService.getMarks(userService.getUserDetails().id, courseId).then(res => {
+                if(res.data == ""){
+                    this.marks = "Not asssigned yet!"
+                }else{
+                    this.marks = res.data
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+
+        confirmUnenroll(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-danger me-2',
+                    cancelButton: 'btn btn-outline-success'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, unenroll!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    userService.unenroll(
+                        userService.getUserDetails().id,
+                        this.id,
+                        userService.getToken()
+                    ).then(res => {
+                        swalWithBootstrapButtons.fire(
+                            'Unenrolled!',
+                            'You have successfully unenrolled from this course.',
+                            'success'
+                        ).then(() => {
+                            this.$router.go(0)
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
+            })
         }
     },
     computed: {
@@ -146,5 +210,8 @@ export default {
     }
     .nav-link.active{
         color: #946B2D;
+    }
+    i{
+        margin-right: 8px;
     }
 </style>
