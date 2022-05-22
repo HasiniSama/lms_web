@@ -51,11 +51,12 @@ export default {
         }
     },
     created(){
-        if(!userService.isSigned){
-            this.$router.push('/signin')
-            return
-        }
         this.initComponent()
+    },
+    mounted(){
+        if(!userService.isSigned()){
+        this.$router.push('/signin')
+        }
     }
 }
 </script>
