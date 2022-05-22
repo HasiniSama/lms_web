@@ -13,15 +13,15 @@
                     <div class="mt-4">
                         <form action="" method="POST" @submit.prevent="signin">
                             <label for="email_field" class="form-label">Email address</label>
-                            <div class="input-group input-group-sm">
-                                <input type="email" name="email" class="form-control" id="email_field" v-model="form.email" required>
+                            <div class="input-group input-group-sm has-validation">
+                                <input type="email" name="email" class="form-control" :class="isError?'is-invalid':''" id="email_field" v-model="form.email" required>
                             </div>
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                             <label for="password_field" class="form-label mt-3">Password</label>
                             <div class="input-group has-validation input-group-sm mb-3">
                                 <input type="password" name="password" class="form-control" :class="isError?'is-invalid':''" id="password_field" required>
                                 <div class="invalid-feedback">
-                                    Incorrect password
+                                    Invalid credentials!
                                 </div>
                             </div>
                             <div class="mb-3 form-check">
@@ -82,6 +82,7 @@
                     if(err.response.status == 403){
                         this.isError = true
                     }
+                    console.log(err);
                 })
             },
             initForm(){

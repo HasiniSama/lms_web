@@ -85,7 +85,12 @@ export default {
                 this.id = toParams.id
             }
         )
-  },
+    },
+    mounted(){
+        if(!userService.isSigned()){
+        this.$router.push('/signin')
+        }
+    }
 }
 </script>
 

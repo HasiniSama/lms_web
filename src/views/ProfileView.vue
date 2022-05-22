@@ -30,7 +30,11 @@ export default {
   computed: {
     isStudent(){
       return userService.getUserDetails().role == userService.UserType.STUDENT
-     
+    }
+  },
+  mounted(){
+    if(!userService.isSigned()){
+      this.$router.push('/signin')
     }
   }
 }
