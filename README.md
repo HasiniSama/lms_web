@@ -1,4 +1,8 @@
-# lms_web
+# LMS Web
+
+### LMS Backend - https://github.com/nsadisha/lms_backend
+### LMS Mobile - https://github.com/nsadisha/lms_android
+
 
 ## Project setup
 ```
